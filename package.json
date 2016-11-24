@@ -1,0 +1,19 @@
+{
+  "name": "weather-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Brel",
+  "license": "ISC",
+  "dependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/googlemaps": "^3.25.36",
+    "@types/jquery": "^2.0.34",
+    "ts-loader": "^1.2.2",
+    "typescript": "^2.0.10",
+    "webpack": "^1.13.3"
+  }
+}
