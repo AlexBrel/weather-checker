@@ -1,8 +1,10 @@
 import IWeather from "./IWeather";
 
 interface ICityWeather {
-    name: string;
-    main: IWeather;
+    Name: string;
+    Weather: IWeather;
+
+    GetTemperatureString(): string;
 }
 
 export default ICityWeather;

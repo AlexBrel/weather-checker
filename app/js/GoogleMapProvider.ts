@@ -11,7 +11,7 @@ export default class GoogleMapProvider {
         };
 
         // Create a map object and specify the DOM element for display.
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map($(".map")[0], {
             center: myLatLng,
             scrollwheel: CommonConstants.googleApi.scrollwheel,
             zoom: CommonConstants.googleApi.zoom

@@ -10,7 +10,7 @@ $(() => {
         owmProvider.DisplayCitiesWeather(position);
         googleMapProvider.DisplayMap(position);
     }).catch(error => {
-        console.log(error);
+        console.error(error);
     });
 });
 
