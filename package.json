@@ -8,7 +8,7 @@
   },
   "author": "Alex Brel",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "@types/es6-promise": "0.0.32",
     "@types/googlemaps": "^3.25.36",
     "@types/jquery": "^2.0.34",

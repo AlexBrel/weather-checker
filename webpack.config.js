@@ -14,5 +14,19 @@ module.exports = {
             { test: /\.tsx?$/, loader: 'ts-loader' }
         ]
     },
-    devtool: "#source-map"
+    devtool: "#source-map",
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['common'],
+            filename: '[name].bundle.js',
+            minChunks: 2
+        }),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            comments: false
+        })
+    ]
 };
