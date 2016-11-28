@@ -9,7 +9,7 @@ $(() => {
     PromisedGeolocation.getPosition().then(position => {
         googleMapProvider.displayMap(position);
         owmProvider.displayCitiesWeather(position).then(()=>{
-            $(".spinner").addClass("closed");
+            $(".spinner-wrapper").addClass("closed");
             $(".table-responsive").removeClass("closed");
         });
     }).catch(error => {
