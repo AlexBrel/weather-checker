@@ -7,8 +7,11 @@ $(() => {
         googleMapProvider = new GoogleMapProvider();
 
     PromisedGeolocation.getPosition().then(position => {
-        owmProvider.displayCitiesWeather(position);
         googleMapProvider.displayMap(position);
+        owmProvider.displayCitiesWeather(position).then(()=>{
+            $(".spinner").addClass("closed");
+            $(".table-responsive").removeClass("closed");
+        });
     }).catch(error => {
         console.error(error);
     });

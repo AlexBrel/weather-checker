@@ -3,17 +3,21 @@ import CommonConstants from "./CommonConstants"
 import City from "./City"
 
 export default class OwmProvider {
-    displayCitiesWeather(geoPosition: Position): void {
-        this.getCitiesWeather(geoPosition).then((citiesWeather: ICityWeather[]) => {
-            for (let i = 0; i < citiesWeather.length; i++) {
-                $("#weather-table").append(["<tr><td>",
-                    (i + 1), "</td><td>",
-                    citiesWeather[i].name, "</td><td>",
-                    citiesWeather[i].getTemperatureString(), "</td><td>",
-                    citiesWeather[i].weather.pressure, "</td></tr>"].join(''));
-            }
-        }).catch(error => {
-            console.error(error);
+    displayCitiesWeather(geoPosition: Position): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.getCitiesWeather(geoPosition).then((citiesWeather: ICityWeather[]) => {
+                for (let i = 0; i < citiesWeather.length; i++) {
+                    $("#weather-table").append(["<tr><td>",
+                        (i + 1), "</td><td>",
+                        citiesWeather[i].name, "</td><td>",
+                        citiesWeather[i].getTemperatureString(), "</td><td>",
+                        citiesWeather[i].weather.pressure, "</td></tr>"].join(''));
+                }
+
+                resolve(true);
+            }).catch(error => {
+                reject(error);
+            });
         });
     }
 
