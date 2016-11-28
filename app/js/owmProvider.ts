@@ -1,6 +1,6 @@
-import ICityWeather from "./interfaces/CityWeather"
-import CommonConstants from "./CommonConstants"
-import City from "./City"
+import ICityWeather from "./interfaces/cityWeather"
+import CommonConstants from "./commonConstants"
+import City from "./city"
 
 export default class OwmProvider {
     displayCitiesWeather(geoPosition: Position): Promise<boolean> {
