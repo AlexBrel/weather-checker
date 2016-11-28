@@ -6,9 +6,9 @@ $(() => {
     let owmProvider = new OwmProvider(),
         googleMapProvider = new GoogleMapProvider();
 
-    PromisedGeolocation.GetPosition().then(position => {
-        owmProvider.DisplayCitiesWeather(position);
-        googleMapProvider.DisplayMap(position);
+    PromisedGeolocation.getPosition().then(position => {
+        owmProvider.displayCitiesWeather(position);
+        googleMapProvider.displayMap(position);
     }).catch(error => {
         console.error(error);
     });

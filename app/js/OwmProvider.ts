@@ -1,24 +1,23 @@
-import IOwmProvider from "./interfaces/IOwmProvider"
-import ICityWeather from "./interfaces/ICityWeather"
+import ICityWeather from "./interfaces/CityWeather"
 import CommonConstants from "./CommonConstants"
-import CityWeather from "./CityWeather"
+import City from "./City"
 
-export default class OwmProvider implements IOwmProvider {
-    DisplayCitiesWeather(geoPosition: Position): void {
-        this.GetCitiesWeather(geoPosition).then((citiesWeather: ICityWeather[]) => {
+export default class OwmProvider {
+    displayCitiesWeather(geoPosition: Position): void {
+        this.getCitiesWeather(geoPosition).then((citiesWeather: ICityWeather[]) => {
             for (let i = 0; i < citiesWeather.length; i++) {
                 $("#weather-table").append(["<tr><td>",
                     (i + 1), "</td><td>",
-                    citiesWeather[i].Name, "</td><td>",
-                    citiesWeather[i].GetTemperatureString(), "</td><td>",
-                    citiesWeather[i].Weather.pressure, "</td></tr>"].join(''));
+                    citiesWeather[i].name, "</td><td>",
+                    citiesWeather[i].getTemperatureString(), "</td><td>",
+                    citiesWeather[i].weather.pressure, "</td></tr>"].join(''));
             }
         }).catch(error => {
             console.error(error);
         });
     }
 
-    private GetCitiesWeather(geoPosition: Position): Promise<ICityWeather[]> {
+    private getCitiesWeather(geoPosition: Position): Promise<ICityWeather[]> {
         return new Promise((resolve, reject) => {
             $.getJSON(CommonConstants.owm.url, {
                 lat: geoPosition.coords.latitude,
@@ -28,10 +27,10 @@ export default class OwmProvider implements IOwmProvider {
                 units: CommonConstants.owm.units,
                 APPID: CommonConstants.owm.apiID
             }).done((weather) => {
-                let citiesWeather: CityWeather[] = [];
+                let citiesWeather: ICityWeather[] = [];
 
                 for (let i = 0; i < weather.list.length; i++) {
-                    citiesWeather.push(new CityWeather(weather.list[i].name, weather.list[i].main));
+                    citiesWeather.push(new City(weather.list[i].name, weather.list[i].main));
                 }
                 resolve(citiesWeather);
             }).fail(function (jqxhr, textStatus, error) {

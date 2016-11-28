@@ -4,7 +4,7 @@ export default class GoogleMapProvider {
     private map: google.maps.Map;
     private marker: google.maps.Marker;
 
-    DisplayMap(geoPosition: Position): void {
+    displayMap(geoPosition: Position): void {
         let myLatLng = {
             lat: geoPosition.coords.latitude,
             lng: geoPosition.coords.longitude
