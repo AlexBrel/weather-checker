@@ -1,6 +1,6 @@
-import PromisedGeolocation from "./PromisedGeolocation"
-import OwmProvider from "./OwmProvider";
-import GoogleMapProvider from "./GoogleMapProvider";
+import PromisedGeolocation from "./promisedGeolocation"
+import OwmProvider from "./owmProvider";
+import GoogleMapProvider from "./googleMapProvider";
 
 $(() => {
     let owmProvider = new OwmProvider(),

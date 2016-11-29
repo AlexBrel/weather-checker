@@ -1,4 +1,4 @@
-import Weather from "./Weather";
+import Weather from "./weather";
 
 interface CityWeather {
     name: string;

@@ -1,4 +1,4 @@
-import CommonConstants from "./CommonConstants"
+import CommonConstants from "./commonConstants"
 
 export default class GoogleMapProvider {
     private map: google.maps.Map;

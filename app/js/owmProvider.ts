@@ -1,18 +1,22 @@
-import ICityWeather from "./interfaces/CityWeather"
-import CommonConstants from "./CommonConstants"
-import City from "./City"
+import ICityWeather from "./interfaces/cityWeather"
+import CommonConstants from "./commonConstants"
+import City from "./city"
 
 export default class OwmProvider {
     displayCitiesWeather(geoPosition: Position): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.getCitiesWeather(geoPosition).then((citiesWeather: ICityWeather[]) => {
+                let cities: string[] = [];
+
                 for (let i = 0; i < citiesWeather.length; i++) {
-                    $("#weather-table").append(["<tr><td>",
+                    cities.push(["<tr><td>",
                         (i + 1), "</td><td>",
                         citiesWeather[i].name, "</td><td>",
                         citiesWeather[i].getTemperatureString(), "</td><td>",
                         citiesWeather[i].weather.pressure, "</td></tr>"].join(''));
                 }
+
+                $("#weather-table").append(cities.join(''));
 
                 resolve(true);
             }).catch(error => {
