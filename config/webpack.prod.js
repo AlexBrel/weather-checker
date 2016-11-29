@@ -4,11 +4,6 @@ const webpack = require("webpack"),
 
 module.exports = webpackMerge(commonConfig, {
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({
-			names: ['common'],
-			filename: '[name].bundle.js',
-			minChunks: 2
-		}),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {

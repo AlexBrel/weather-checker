@@ -13,5 +13,12 @@ module.exports = {
 		loaders: [
 			{test: /\.tsx?$/, loader: 'ts-loader'}
 		]
-	}
+	},
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['common'],
+			filename: '[name].bundle.js',
+			minChunks: 2
+		})
+	]
 };
