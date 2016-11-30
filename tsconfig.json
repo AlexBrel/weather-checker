@@ -13,9 +13,14 @@
       "./node_modules/@types"
     ],
     "types": [
+      "core-js",
       "jquery",
-      "es6-promise",
-      "googlemaps"
+      "googlemaps",
+      "hammerjs",
+      "node",
+      "source-map",
+      "uglify-js",
+      "webpack"
     ]
   }
 }
