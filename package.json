@@ -42,6 +42,7 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "manifest-revision-webpack-plugin": "^0.3.0",
+    "to-string-loader": "^1.1.5",
     "ts-loader": "^1.2.2",
     "typescript": "^2.0.10",
     "webpack": "^1.13.3",
