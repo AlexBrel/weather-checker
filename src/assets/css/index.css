@@ -1,0 +1,10 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    position: relative;
+    background-color: #f1f1f1;
+}

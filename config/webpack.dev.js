@@ -3,5 +3,12 @@ const webpack = require("webpack"),
 	commonConfig = require('./webpack.common.js');
 
 module.exports = webpackMerge(commonConfig, {
-	devtool: "#source-map"
+	devtool: "#source-map",
+    debug: true,
+    stats: {
+        colors: true,
+        modules: true,
+        reasons: true,
+        errorDetails: true
+    }
 });

@@ -1,0 +1,14 @@
+header {
+    margin: 0 auto;
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+    background-color: #c7c7c7;
+    color: #6a6a6a;
+}
+
+@media (min-width: 768px) {
+    header {
+        width: 750px;
+    }
+}

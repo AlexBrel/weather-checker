@@ -1,7 +1,7 @@
-import CityWeather from "./interfaces/cityWeather"
-import Weather from "./interfaces/weather"
+import CityWeather from "../interfaces/cityWeather"
+import Weather from "../interfaces/weather"
 
-export default class City implements CityWeather {
+export default class City {
     name: string;
     weather: Weather;
 

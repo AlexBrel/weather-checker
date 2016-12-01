@@ -22,5 +22,9 @@
       "uglify-js",
       "webpack"
     ]
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true
+    // Allows other loaders to be chained to awesome-typescript-loader.
   }
 }
