@@ -9,11 +9,3 @@ body {
     position: relative;
     background-color: #f1f1f1;
 }
-
-.application {
-    display: block;
-    position: relative;
-    height: 100%;
-    padding: 15px;
-    margin: 0 auto;
-}
