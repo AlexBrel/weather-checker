@@ -22,12 +22,23 @@ yarn
 
 Creating of bundles
 ```
-webpack --config config/webpack.config.js
+npm run build
 ```
 
-Open app/index.js pae in browser, or run the Webstorm server, or run the webpack dev-server
+Creating of bundles, development mode
 ```
-webpack-dev-server --config config/webpack.config.js
+npm run build-dev
+```
+
+Creating of bundles, production mode
+```
+npm run build-prod
+```
+
+
+Open app/index.js pae in browser, or run the Webstorm server, or run the webpack dev-server (http://localhost:8090/)
+```
+npm run start
 ```
 
 ## Tests

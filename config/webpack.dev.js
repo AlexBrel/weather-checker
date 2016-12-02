@@ -4,11 +4,17 @@ const webpack = require("webpack"),
 
 module.exports = webpackMerge(commonConfig, {
 	devtool: "#source-map",
-    debug: true,
-    stats: {
-        colors: true,
-        modules: true,
-        reasons: true,
-        errorDetails: true
-    }
+	debug: true,
+	stats: {
+		colors: true,
+		modules: true,
+		reasons: true,
+		errorDetails: true
+	},
+	devServer: {
+		contentBase: './dist',
+		info: true,
+		hot: false,
+		inline: true
+	}
 });
