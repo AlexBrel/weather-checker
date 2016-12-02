@@ -1,12 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-
-import CommonConstants from './commonConstants';
+import {Component, OnInit} from "@angular/core";
 
 @Component({
-    selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    selector: "app",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"]
 
 })
 export class AppComponent implements OnInit {
@@ -15,7 +12,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         if (window.navigator && window.navigator.geolocation) {
-            window.navigator.geolocation.getCurrentPosition(position => {
+            window.navigator.geolocation.getCurrentPosition((position: Position) => {
                 this.geoPosition = position;
             })
         } else {

@@ -1,6 +1,10 @@
-<main-header></main-header>
-<main>
-    <spinner *ngIf="!isWeatherTableReady"></spinner>
-    <weather-table *ngIf="geoPosition" [ngClass]="{closed: !isWeatherTableReady }"  [lat]="geoPosition.coords.latitude" [long]="geoPosition.coords.longitude" (tableReady)="weatherTableReady($event)"></weather-table>
-    <map *ngIf="geoPosition" [lat]="geoPosition.coords.latitude" [long]="geoPosition.coords.longitude"></map>
-</main>
+<div class="layout">
+    <main-header></main-header>
+    <main>
+        <spinner *ngIf="!isWeatherTableReady"></spinner>
+        <cities-weather *ngIf="geoPosition" [ngClass]="{closed: !isWeatherTableReady }" [lat]="geoPosition.coords.latitude"
+                        [long]="geoPosition.coords.longitude" (tableReady)="weatherTableReady($event)"></cities-weather>
+        <map *ngIf="geoPosition" [lat]="geoPosition.coords.latitude" [long]="geoPosition.coords.longitude"></map>
+    </main>
+    <main-footer></main-footer>
+</div>

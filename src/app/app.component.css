@@ -1,14 +1,19 @@
-main {
+.layout {
     position: relative;
-    height: 100%;
-    padding: 15px;
+    overflow: hidden;
+    min-height: 100%;
     margin: 0 auto;
     background-color: #E6E6E6;
     color: #6a6a6a;
 }
 
+main {
+    padding: 15px;
+    margin-bottom: 45px;
+}
+
 @media (min-width: 768px) {
-    main {
+    .layout {
         width: 750px;
     }
 }

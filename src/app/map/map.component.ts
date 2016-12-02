@@ -1,11 +1,11 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges} from "@angular/core";
 
-import commonConstants from '../commonConstants';
+import commonConstants from "../commonConstants";
 
 @Component({
-    selector: 'map',
-    templateUrl: './map.component.html',
-    styleUrls: ['./map.component.css']
+    selector: "map",
+    templateUrl: "./map.component.html",
+    styleUrls: ["./map.component.css"]
 
 })
 export class MapComponent implements OnChanges {
