@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from "@angular/core";
+import {Component, Input, OnChanges, ElementRef, ViewChild} from "@angular/core";
 
 import commonConstants from "../commonConstants";
 
@@ -11,9 +11,7 @@ import commonConstants from "../commonConstants";
 export class MapComponent implements OnChanges {
     @Input() lat: number;
     @Input() long: number;
-
-    private map: google.maps.Map;
-    private marker: google.maps.Marker;
+    @ViewChild("googleMap") googleMap: ElementRef;
 
     ngOnChanges() {
         if (this.lat && this.long) {
@@ -22,21 +20,23 @@ export class MapComponent implements OnChanges {
     }
 
     private showMap() {
-        let myLatLng = {
-            lat: this.lat,
-            lng: this.long
-        };
+        let map: google.maps.Map,
+            marker: google.maps.Marker,
+            myLatLng = {
+                lat: this.lat,
+                lng: this.long
+            };
 
         // Create a map object and specify the DOM element for display.
-        this.map = new google.maps.Map($(".map")[0], {
+        map = new google.maps.Map(this.googleMap.nativeElement, {
             center: myLatLng,
             scrollwheel: commonConstants.googleApi.scrollwheel,
             zoom: commonConstants.googleApi.zoom
         });
 
         // Create a marker and set its position.
-        this.marker = new google.maps.Marker({
-            map: this.map,
+        marker = new google.maps.Marker({
+            map: map,
             position: myLatLng
         });
     }
