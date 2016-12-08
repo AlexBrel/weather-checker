@@ -13,7 +13,7 @@
             <th>
                 Temperature,
                 <select  [(ngModel)]="selectedTempUnit" class="temperature-select">
-                    <option *ngFor="let unit of temperatureUnits" [ngValue]="unit">{{unit}}</option>
+                    <option *ngFor="let unit of temperatureUnits" [ngValue]="unit">{{temperatureUnitShortcuts[unit]}}</option>
                 </select>
             </th>
             <th>Pressure, GPa</th>

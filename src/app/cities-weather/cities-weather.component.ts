@@ -4,6 +4,7 @@ import commonConstants from "../common-constants";
 import City from "./city";
 import mockWeatherResponse from "./mock-weather-response";
 import OwmCity from "./owm-city";
+import TemperatureUnit from "./temperature-unit";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class CitiesWeatherComponent implements OnChanges {
     @Output() tableReady = new EventEmitter();
 
     cities: City[];
-    temperatureUnits = ["°C", "°F", "K"];
+    temperatureUnits = [TemperatureUnit.Celsius, TemperatureUnit.Fahrenheit, TemperatureUnit.Kelvin];
+    temperatureUnitShortcuts = ["°C", "°F", "K"];
     selectedTempUnit = this.temperatureUnits[0];
 
     ngOnChanges() {

@@ -1,3 +1,3 @@
-enum TemperatureUnit {Fareng, Celsius, Kelvin};
+enum TemperatureUnit {Celsius, Fahrenheit, Kelvin};
 
 export default TemperatureUnit;
