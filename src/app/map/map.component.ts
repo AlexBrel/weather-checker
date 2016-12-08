@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, ElementRef, ViewChild} from "@angular/core";
 
-import commonConstants from "../commonConstants";
+import commonConstants from "../common-constants";
 
 @Component({
     selector: "map",

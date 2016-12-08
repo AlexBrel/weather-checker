@@ -1,14 +1,15 @@
 import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
 
-import commonConstants from "../commonConstants";
+import commonConstants from "../common-constants";
 import City from "./city";
-import mockWeatherResponse from "./mockWeatherResponse";
-import OwmCity from "./owmCity";
+import mockWeatherResponse from "./mock-weather-response";
+import OwmCity from "./owm-city";
+
 
 @Component({
     selector: "cities-weather",
-    templateUrl: "citiesWeather.component.html",
-    styleUrls: ["citiesWeather.component.css"]
+    templateUrl: "cities-weather.component.html",
+    styleUrls: ["cities-weather.component.css"]
 
 })
 export class CitiesWeatherComponent implements OnChanges {
@@ -17,6 +18,8 @@ export class CitiesWeatherComponent implements OnChanges {
     @Output() tableReady = new EventEmitter();
 
     cities: City[];
+    temperatureUnits = ["°C", "°F", "K"];
+    selectedTempUnit = this.temperatureUnits[0];
 
     ngOnChanges() {
         if (this.lat && this.long) {
@@ -37,11 +40,11 @@ export class CitiesWeatherComponent implements OnChanges {
         return new Promise(resolve => {
             $.getJSON(commonConstants.owm.url, {
                 lat: this.lat,
-                lon: this.long,
+                lon: this.long,//
                 cnt: commonConstants.owm.count,
                 lang: commonConstants.owm.lang,
                 units: commonConstants.owm.units,
-                APPID: commonConstants.owm.apiID
+                APPID: commonConstants.owm.apiID+ "dfefdev"
             }).done(weather => {
                 resolve(this.mapOwmResponseToCities(weather.list));
             }).fail((jqxhr, textStatus, error) => {

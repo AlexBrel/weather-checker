@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 
-import TableReadyEvent from "./citiesWeather/tableReadyEvent";
+import TableReadyEvent from "./cities-weather/table-ready-event";
 
 @Component({
     selector: "app",
