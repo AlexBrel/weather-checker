@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 
+import TableReadyEvent from "./citiesWeather/tableReadyEvent";
+
 @Component({
     selector: "app",
     templateUrl: "./app.component.html",
@@ -20,11 +22,11 @@ export class AppComponent implements OnInit {
         }
     }
 
-    weatherTableReady(err?: string) {
-        if(err) {
-            console.error(err);
+    weatherTableReady(event: TableReadyEvent) {
+        if(event.error) {
+            console.error(event.error);
         } else {
-            this.isWeatherTableReady = true;
+            this.isWeatherTableReady = event.isTableReady;
         }
     }
 }

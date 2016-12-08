@@ -27,10 +27,9 @@ export class CitiesWeatherComponent implements OnChanges {
     private generateTable() {
         this.getCitiesWeather().then((citiesWeather: City[]) => {
             this.cities = citiesWeather;
-
-            this.tableReady.emit();
+            this.tableReady.emit({error: null, isTableReady: true});
         }).catch(error => {
-            this.tableReady.emit(error);
+            this.tableReady.emit({error: error, isTableReady: false});
         });
     }
 
