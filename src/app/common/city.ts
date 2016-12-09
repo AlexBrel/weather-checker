@@ -1,6 +1,6 @@
 import Weather from "./weather"
 
-export default class OwmCity {
+export default class City {
     name: string;
     main: Weather;
 }

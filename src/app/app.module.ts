@@ -7,11 +7,14 @@ import {AppComponent} from "./app.component";
 import {MainHeaderComponent} from "./main-header/main-header.component";
 import {MainFooterComponent} from "./main-footer/main-footer.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
-import {CitiesWeatherComponent} from "./cities-weather/cities-weather.component";
+import {RegionWeatherComponent} from "./region-weather/region-weather.component";
+import {CityWeatherComponent} from "./city-weather/city-weather.component";
 import {MapComponent} from "./map/map.component";
-import {TemperatureStringPipe} from "./cities-weather/pipes/temperature-string.pipe";
-import {ConvertTemperaturePipe} from "./cities-weather/pipes/convert-temperature.pipe";
-import {FloorTemperaturePipe} from "./cities-weather/pipes/floor-temperature.pipe";
+import {TemperatureUnitSelectorComponent} from "./temp-unit-selector/temp-unit-selector.component";
+import {TemperatureStringPipe} from "./common/temperature-string.pipe";
+import {ConvertTemperaturePipe} from "./common/convert-temperature.pipe";
+import {FloorTemperaturePipe} from "./common/floor-temperature.pipe";
+import {WeatherRequestPipe} from "./city-weather/weather-request.pipe";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, CommonModule],
@@ -19,11 +22,14 @@ import {FloorTemperaturePipe} from "./cities-weather/pipes/floor-temperature.pip
         MainHeaderComponent,
         MainFooterComponent,
         SpinnerComponent,
-        CitiesWeatherComponent,
+        RegionWeatherComponent,
         MapComponent,
+        TemperatureUnitSelectorComponent,
+        CityWeatherComponent,
         TemperatureStringPipe,
         ConvertTemperaturePipe,
-        FloorTemperaturePipe
+        FloorTemperaturePipe,
+        WeatherRequestPipe
     ],
     bootstrap: [AppComponent]
 })

@@ -1,10 +1,13 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
-import Weather from "../weather"
+import Weather from "./weather"
 
 @Pipe({name: 'temperatureString'})
 export class TemperatureStringPipe implements PipeTransform {
     transform(weather: Weather): string {
+        if (!weather) {
+            return null;
+        }
         let minSymbol = (weather.temp_min < 0) ? "" : "+";
 
         if (weather.temp_min === weather.temp_max) {

@@ -1,0 +1,17 @@
+<h4>City Weather</h4>
+<div class="city-weather-wrapper">
+    Select City:
+    <select [(ngModel)]="selectedCity">
+        <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
+    </select>
+    in
+    <temp-unit-selector (unitSelected)="unitSelected($event)"></temp-unit-selector>
+    <div *ngIf="selectedCity">
+        Temperature: {{selectedCity |
+        weatherRequest |
+        async |
+        convertTemperature: selectedTempUnit |
+        floorTemperature |
+        temperatureString}}
+    </div>
+</div>

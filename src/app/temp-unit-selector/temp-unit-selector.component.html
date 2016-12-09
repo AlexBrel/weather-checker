@@ -1,0 +1,3 @@
+<select [(ngModel)]="selectedUnit" (change)="onSelectionChange()" class="temperature-select">
+    <option *ngFor="let unit of temperatureUnits" [ngValue]="unit">{{temperatureUnitShortcuts[unit]}}</option>
+</select>

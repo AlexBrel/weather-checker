@@ -1,9 +1,10 @@
 <div class="layout">
     <main-header></main-header>
     <main>
+        <city-weather></city-weather>
         <spinner *ngIf="!isWeatherTableReady"></spinner>
-        <cities-weather *ngIf="geoPosition" [ngClass]="{closed: !isWeatherTableReady }" [lat]="geoPosition.coords.latitude"
-                        [long]="geoPosition.coords.longitude" (tableReady)="weatherTableReady($event)"></cities-weather>
+        <region-weather *ngIf="geoPosition" [ngClass]="{closed: !isWeatherTableReady }" [lat]="geoPosition.coords.latitude"
+                        [long]="geoPosition.coords.longitude" (tableReady)="weatherTableReady($event)"></region-weather>
         <map *ngIf="geoPosition" [lat]="geoPosition.coords.latitude" [long]="geoPosition.coords.longitude"></map>
     </main>
     <main-footer></main-footer>
