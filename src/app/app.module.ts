@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {HttpModule} from '@angular/http';
 
 import {AppComponent} from "./app.component";
 import {MainHeaderComponent} from "./main-header/main-header.component";
@@ -17,7 +18,7 @@ import {FloorTemperaturePipe} from "./common/floor-temperature.pipe";
 import {WeatherRequestPipe} from "./city-weather/weather-request.pipe";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, CommonModule],
+    imports: [BrowserModule, FormsModule, CommonModule, HttpModule],
     declarations: [AppComponent,
         MainHeaderComponent,
         MainFooterComponent,
