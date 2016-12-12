@@ -1,17 +1,17 @@
-import {Component, Input, OnChanges, ElementRef, ViewChild} from "@angular/core";
+import {Component, Input, OnChanges, ElementRef, ViewChild} from '@angular/core';
 
-import commonConstants from "../common/common-constants";
+import commonConstants from '../common/common-constants';
 
 @Component({
-    selector: "map",
-    templateUrl: "./map.component.html",
-    styleUrls: ["./map.component.css"]
+    selector: 'map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css']
 
 })
 export class MapComponent implements OnChanges {
     @Input() lat: number;
     @Input() long: number;
-    @ViewChild("googleMap") googleMap: ElementRef;
+    @ViewChild('googleMap') googleMap: ElementRef;
 
     ngOnChanges() {
         if (this.lat && this.long) {

@@ -1,6 +1,6 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import {Pipe, PipeTransform} from '@angular/core';
 
-import Weather from "./weather"
+import Weather from './weather';
 
 @Pipe({name: 'temperatureString'})
 export class TemperatureStringPipe implements PipeTransform {
@@ -8,14 +8,14 @@ export class TemperatureStringPipe implements PipeTransform {
         if (!weather) {
             return null;
         }
-        let minSymbol = (weather.temp_min < 0) ? "" : "+";
+        let minSymbol = (weather.temp_min < 0) ? '' : '+';
 
         if (weather.temp_min === weather.temp_max) {
             return `near ${minSymbol}${weather.temp_min}`;
         } else {
-            let maxSymbol = (weather.temp_max < 0) ? "" : "+";
+            let maxSymbol = (weather.temp_max < 0) ? '' : '+';
 
-            return `${minSymbol}${weather.temp_min}...${maxSymbol}${weather.temp_max}`
+            return `${minSymbol}${weather.temp_min}...${maxSymbol}${weather.temp_max}`;
         }
     }
 

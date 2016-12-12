@@ -10,7 +10,7 @@
         "no-trailing-whitespace": true,
         "no-var-keyword": true,
         "one-line": [true, "check-open-brace", "check-whitespace"],
-        "semicolon": false,
+        "semicolon": true,
         "triple-equals": [true, "allow-null-check"],
         "typedef-whitespace": [true, {
             "call-signature": "nospace",
@@ -26,6 +26,7 @@
             "check-operator",
             "check-separator",
             "check-type"
-        ]
+        ],
+        "quotemark": [true, "single", "avoid-escape"]
     }
 }

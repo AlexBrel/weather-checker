@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 
-import TableReadyEvent from "./region-weather/table-ready-event";
+import TableReadyEvent from './region-weather/table-ready-event';
 
 @Component({
-    selector: "app",
-    templateUrl: "./app.component.html",
-    styleUrls: ["./app.component.css"]
+    selector: 'app',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 
 })
 export class AppComponent implements OnInit {
@@ -16,14 +16,14 @@ export class AppComponent implements OnInit {
         if (window.navigator && window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition((position: Position) => {
                 this.geoPosition = position;
-            })
+            });
         } else {
-            console.log("Geoposition is not defined");
+            console.log('Geoposition is not defined');
         }
     }
 
     weatherTableReady(event: TableReadyEvent) {
-        if(event.error) {
+        if (event.error) {
             console.error(event.error);
         } else {
             this.isWeatherTableReady = event.isTableReady;

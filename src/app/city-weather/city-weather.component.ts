@@ -1,28 +1,28 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
-import TemperatureUnit from "../common/temperature-unit";
+import TemperatureUnit from '../common/temperature-unit';
 
 @Component({
-    selector: "city-weather",
-    templateUrl: "city-weather.component.html",
-    styleUrls: ["city-weather.component.css"]
+    selector: 'city-weather',
+    templateUrl: 'city-weather.component.html',
+    styleUrls: ['city-weather.component.css']
 
 })
 export class CityWeatherComponent {
-    availableCities = ["Minsk",
-        "Zhdanovichy",
-        "Baravaya",
-        "Navinki",
-        "Serebryanka",
-        "Ratamka",
-        "Vostok",
-        "Machulishchy",
-        "Hatava",
-        "Fanipol"];
+    availableCities = ['Minsk',
+        'Zhdanovichy',
+        'Baravaya',
+        'Navinki',
+        'Serebryanka',
+        'Ratamka',
+        'Vostok',
+        'Machulishchy',
+        'Hatava',
+        'Fanipol'];
     selectedCity: string;
     selectedTempUnit: TemperatureUnit;
 
-    unitSelected(selectedUnit: TemperatureUnit){
+    unitSelected(selectedUnit: TemperatureUnit) {
         this.selectedTempUnit = selectedUnit;
     }
 }

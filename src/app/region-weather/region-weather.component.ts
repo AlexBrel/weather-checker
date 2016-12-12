@@ -1,16 +1,16 @@
-import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
-import {Observable} from "rxjs";
-import {URLSearchParams, Response, Http} from "@angular/http";
+import {Component, Input, OnChanges, Output, EventEmitter} from '@angular/core';
+import {Observable} from 'rxjs';
+import {URLSearchParams, Response, Http} from '@angular/http';
 
-import commonConstants from "../common/common-constants";
-import City from "../common/city";
-import mockWeatherResponse from "./mock-weather-response";
-import TemperatureUnit from "../common/temperature-unit";
+import commonConstants from '../common/common-constants';
+import City from '../common/city';
+import mockWeatherResponse from './mock-weather-response';
+import TemperatureUnit from '../common/temperature-unit';
 
 
 @Component({
-    selector: "region-weather",
-    templateUrl: "region-weather.component.html"
+    selector: 'region-weather',
+    templateUrl: 'region-weather.component.html'
 
 })
 export class RegionWeatherComponent implements OnChanges {
@@ -45,7 +45,7 @@ export class RegionWeatherComponent implements OnChanges {
         );
     }
 
-    //TODO: move it in service in future
+    // TODO: move it in service in future
     private getRegionWeather(): Observable<City[]> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('lat', this.lat.toString());
@@ -61,7 +61,6 @@ export class RegionWeatherComponent implements OnChanges {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
                 console.error(`Request Failed: ${error}`);
                 return Observable.of(mockWeatherResponse);
-            })
-
+            });
     }
 }

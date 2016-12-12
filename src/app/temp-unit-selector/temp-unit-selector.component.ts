@@ -1,18 +1,18 @@
-import {Component, Output, OnChanges, EventEmitter, AfterViewInit} from "@angular/core";
+import {Component, Output, EventEmitter, AfterViewInit} from '@angular/core';
 
-import TemperatureUnit from "../common/temperature-unit";
+import TemperatureUnit from '../common/temperature-unit';
 
 @Component({
-    selector: "temp-unit-selector",
-    templateUrl: "./temp-unit-selector.component.html",
-    styleUrls: ["./temp-unit-selector.component.css"]
+    selector: 'temp-unit-selector',
+    templateUrl: './temp-unit-selector.component.html',
+    styleUrls: ['./temp-unit-selector.component.css']
 
 })
-export class TemperatureUnitSelectorComponent implements AfterViewInit{
+export class TemperatureUnitSelectorComponent implements AfterViewInit {
 
     @Output() unitSelected = new EventEmitter();
     temperatureUnits = [TemperatureUnit.Celsius, TemperatureUnit.Fahrenheit, TemperatureUnit.Kelvin];
-    temperatureUnitShortcuts = ["°C", "°F", "K"];
+    temperatureUnitShortcuts = ['°C', '°F', 'K'];
     selectedUnit: TemperatureUnit = this.temperatureUnits[0];
 
     ngAfterViewInit(): void {

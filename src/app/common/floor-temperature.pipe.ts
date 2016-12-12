@@ -1,11 +1,11 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import {Pipe, PipeTransform} from '@angular/core';
 
-import Weather from "./weather"
+import Weather from './weather';
 
 @Pipe({name: 'floorTemperature'})
 export class FloorTemperaturePipe implements PipeTransform {
     transform(weather: Weather): Weather {
-        if (!weather){
+        if (!weather) {
             return null;
         }
         return {
