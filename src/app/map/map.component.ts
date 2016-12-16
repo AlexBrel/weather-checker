@@ -1,20 +1,20 @@
-import {Component, Input, OnChanges, ElementRef, ViewChild} from '@angular/core';
+import Immutable = require('immutable');
+import {Component, Input, OnChanges, ElementRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import commonConstants from '../common/common-constants';
 
 @Component({
     selector: 'map',
     templateUrl: './map.component.html',
-    styleUrls: ['./map.component.css']
-
+    styleUrls: ['./map.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent implements OnChanges {
-    @Input() lat: number;
-    @Input() long: number;
+    @Input() coordinates: Immutable.Map<string, number>;
     @ViewChild('googleMap') googleMap: ElementRef;
 
     ngOnChanges() {
-        if (this.lat && this.long) {
+        if (this.coordinates) {
             this.showMap();
         }
     }
@@ -23,8 +23,8 @@ export class MapComponent implements OnChanges {
         let map: google.maps.Map,
             marker: google.maps.Marker,
             myLatLng = {
-                lat: this.lat,
-                lng: this.long
+                lat: this.coordinates.get('lat'),
+                lng: this.coordinates.get('long')
             };
 
         // Create a map object and specify the DOM element for display.

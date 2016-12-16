@@ -1,3 +1,4 @@
+import Immutable = require('immutable');
 import {Component, OnInit} from '@angular/core';
 
 import TableReadyEvent from './region-weather/table-ready-event';
@@ -6,16 +7,16 @@ import TableReadyEvent from './region-weather/table-ready-event';
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
-
 })
 export class AppComponent implements OnInit {
-    geoPosition: Position;
+    coordinates: Immutable.Map<string, number>;
     isWeatherTableReady: boolean = false;
+    isLoading: boolean = true;
 
     ngOnInit(): void {
         if (window.navigator && window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition((position: Position) => {
-                this.geoPosition = position;
+                this.coordinates  = Immutable.fromJS({lat: position.coords.latitude, long: position.coords.longitude});
             });
         } else {
             console.log('Geoposition is not defined');
@@ -23,10 +24,11 @@ export class AppComponent implements OnInit {
     }
 
     weatherTableReady(event: TableReadyEvent) {
-        if (event.error) {
+        if (event.error) {//gfe
             console.error(event.error);
         } else {
             this.isWeatherTableReady = event.isTableReady;
+            this.isLoading = event.isLoading;
         }
     }
 }

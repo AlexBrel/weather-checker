@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import TemperatureUnit from '../common/temperature-unit';
 
 @Component({
     selector: 'city-weather',
     templateUrl: 'city-weather.component.html',
-    styleUrls: ['city-weather.component.css']
-
+    styleUrls: ['city-weather.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
     availableCities = ['Minsk',
