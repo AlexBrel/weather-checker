@@ -1,7 +1,26 @@
 <h4>City Weather</h4>
+<div class="operation-wrapper">
+    <div class="operation-header">Add new city:</div>
+    <input #potentialCity type="text" class="operand" placeholder="New City" />
+    <button (click)="addCity()">Add</button>
+</div>
+<div class="operation-wrapper">
+    <div class="operation-header">Remove city:</div>
+    <select [(ngModel)]="removedCity" class="operand">
+        <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
+    </select>
+    <button (click)="removeCity()">Remove</button>
+</div>
+<div class="operation-wrapper">
+    <div class="operation-header">Favourite city:</div>
+    <select [(ngModel)]="favouriteCity" class="operand" (change)="changeFavouriteCity()">
+        <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
+    </select>
+</div>
+
 <div class="city-weather-wrapper">
-    Select City:
-    <select [(ngModel)]="selectedCity">
+    <div class="operation-header">Select City:</div>
+    <select [(ngModel)]="selectedCity" class="operand">
         <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
     </select>
     in

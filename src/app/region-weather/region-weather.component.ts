@@ -58,11 +58,11 @@ export class RegionWeatherComponent implements OnChanges {
         params.set('APPID', commonConstants.owm.apiID);
 
         let request = this.http.get(commonConstants.owm.regionUrl, {search: params})
-            .map((resp: Response) => resp.json().list as City[])
+            .map((resp: Response) => Immutable.List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
                 console.error(`Request Failed: ${error}`);
-                return Observable.of(mockWeatherResponse);
+                return Observable.of(Immutable.List.of(...mockWeatherResponse));
             });
 
         return request.expand(() => {

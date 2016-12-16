@@ -1,3 +1,18 @@
 .city-weather-wrapper {
     margin: 20px 0;
 }
+
+.operation-wrapper{
+    margin-bottom: 5px;
+}
+
+.operation-header {
+    display: inline-block;
+    width: 100px;
+}
+
+.operand {
+    display: inline-block;
+    width: 170px;
+    height: 25px;
+}
