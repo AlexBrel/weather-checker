@@ -1,5 +1,5 @@
 import Immutable = require('immutable');
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, NgZone} from '@angular/core';
 
 import TableReadyEvent from './region-weather/table-ready-event';
 
@@ -13,6 +13,18 @@ export class AppComponent implements OnInit {
     isWeatherTableReady: boolean = false;
     isLoading: boolean = true;
 
+    private time: number;
+
+    constructor(private zone: NgZone) {
+        this.zone.onUnstable.subscribe(() => {
+            this.time = performance.now();
+        });
+
+        this.zone.onStable.subscribe(() => {
+            console.log(`stabilization time: ${(performance.now() - this.time).toFixed(3)}ms`);
+        });
+    }
+
     ngOnInit(): void {
         if (window.navigator && window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition((position: Position) => {
@@ -24,11 +36,13 @@ export class AppComponent implements OnInit {
     }
 
     weatherTableReady(event: TableReadyEvent) {
-        if (event.error) {//gfe
+        if (event.error) {
             console.error(event.error);
         } else {
-            this.isWeatherTableReady = event.isTableReady;
-            this.isLoading = event.isLoading;
+            if (!this.isWeatherTableReady) {
+                this.isWeatherTableReady = event.isTableReady;
+            }
+            this.isLoading = !event.isTableReady;
         }
     }
 }

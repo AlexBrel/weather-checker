@@ -1,7 +1,5 @@
 import Immutable = require('immutable');
-import { Component, Input, OnChanges, Output, EventEmitter, ChangeDetectionStrategy,
-    ChangeDetectorRef
-} from '@angular/core';
+import {Component, Input, OnChanges, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import {Observable} from 'rxjs';
 import {URLSearchParams, Response, Http} from '@angular/http';
 
@@ -13,8 +11,7 @@ import TemperatureUnit from '../common/temperature-unit';
 
 @Component({
     selector: 'region-weather',
-    templateUrl: 'region-weather.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: 'region-weather.component.html'
 })
 export class RegionWeatherComponent implements OnChanges {
     @Input() coordinates: Immutable.Map<string, number>;
@@ -23,7 +20,9 @@ export class RegionWeatherComponent implements OnChanges {
     cities: Immutable.List<City>;
     selectedTempUnit: TemperatureUnit;
 
-    constructor(private http: Http, private cd: ChangeDetectorRef) {}
+    constructor(private http: Http, private cd: ChangeDetectorRef) {
+        this.cd.detach();
+    }
 
     ngOnChanges() {
         if (this.coordinates) {
@@ -39,11 +38,11 @@ export class RegionWeatherComponent implements OnChanges {
         this.getRegionWeather().subscribe(
             (citiesWeather: Immutable.List<City>) => {
                 this.cities = citiesWeather;
-                this.cd.markForCheck();
-                this.tableReady.emit({error: null, isTableReady: true, isLoading: false});
+                this.tableReady.emit({error: null, isTableReady: true});
+                this.cd.detectChanges();
             },
             (error: Error) => {
-                this.tableReady.emit({error: error, isTableReady: false, isLoading: false});
+                this.tableReady.emit({error: error, isTableReady: false});
             }
         );
     }
@@ -68,8 +67,8 @@ export class RegionWeatherComponent implements OnChanges {
 
         return request.expand(() => {
             return Observable.timer(5000).concatMap(() => {
-                this.tableReady.emit({error: null, isTableReady: true, isLoading: true});
-                return request
+                this.tableReady.emit({error: null, isTableReady: false});
+                return request;
             });
         });
     }

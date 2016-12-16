@@ -1,8 +1,10 @@
 <div class="layout">
     <main-header></main-header>
     <main>
-        <city-weather></city-weather>
-        <spinner *ngIf="isLoading"></spinner>
+        <div class="top-layout">
+            <city-weather></city-weather>
+            <spinner *ngIf="isLoading" class="spinner-wrapper"></spinner>
+        </div>
         <region-weather *ngIf="coordinates" [ngClass]="{closed: !isWeatherTableReady && isLoading }" [coordinates]="coordinates"
                         (tableReady)="weatherTableReady($event)"></region-weather>
         <map [coordinates]="coordinates"></map>

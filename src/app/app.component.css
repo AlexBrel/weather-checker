@@ -7,6 +7,18 @@
     color: #6a6a6a;
 }
 
+.top-layout {
+    position: relative;
+}
+
+.spinner-wrapper{
+    position: absolute;
+    right: 40px;
+    bottom: 0;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
 main {
     padding: 15px;
     margin-bottom: 45px;

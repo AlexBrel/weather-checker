@@ -3,12 +3,6 @@
     100% { transform: rotate(360deg); }
 }
 
-.spinner-wrapper{
-    position: relative;
-    height: 40px;
-    margin-bottom: 10px;
-}
-
 .spinner {
     border: 6px solid #E6E6E6; /* Light grey */
     border-top: 6px solid #6a6a6a; /* Blue */
