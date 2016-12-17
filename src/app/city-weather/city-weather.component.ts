@@ -10,7 +10,8 @@ import TemperatureUnit from '../common/temperature-unit';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
-    availableCities: Immutable.List<string> = Immutable.List.of('Minsk',
+    availableCities: Immutable.List<string> = Immutable.List.of(
+        'Minsk',
         'Zhdanovichy',
         'Baravaya',
         'Navinki',
@@ -28,6 +29,7 @@ export class CityWeatherComponent {
 
     constructor() {
         let storedCity = localStorage.getItem('favouriteCity');
+
         if (storedCity) {
             this.selectedCity = this.favouriteCity = storedCity;
         }
@@ -38,7 +40,6 @@ export class CityWeatherComponent {
     }
 
     addCity() {
-        console.log(this.cityInput.nativeElement.value);
         this.availableCities = this.availableCities.push(this.cityInput.nativeElement.value);
     }
 
@@ -65,5 +66,4 @@ export class CityWeatherComponent {
     changeFavouriteCity() {
         localStorage.setItem('favouriteCity', this.favouriteCity);
     }
-
 }
