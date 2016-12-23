@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 
 import commonConstants from '../common/common-constants';
 import City from '../common/city';
-import mockCityWeatherResponse from './mock-city-weather-response';
+import mockCityWeatherResponse from './city-weather-response.mock';
 import Weather from '../common/weather';
 
 @Pipe({name: 'weatherRequest', pure: true})

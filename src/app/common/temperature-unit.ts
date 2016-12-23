@@ -1,3 +1,7 @@
-enum TemperatureUnit {Celsius, Fahrenheit, Kelvin};
+let temperatureUnit = {
+    Celsius: '°C',
+    Fahrenheit: '°F',
+    Kelvin: 'K'
+};
 
-export default TemperatureUnit;
+export default temperatureUnit;

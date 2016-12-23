@@ -1,6 +1,6 @@
 import {Component, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 
-import TemperatureUnit from '../common/temperature-unit';
+import temperatureUnit from '../common/temperature-unit';
 
 @Component({
     selector: 'temp-unit-selector',
@@ -11,9 +11,8 @@ import TemperatureUnit from '../common/temperature-unit';
 export class TemperatureUnitSelectorComponent implements AfterViewInit {
 
     @Output() unitSelected = new EventEmitter();
-    temperatureUnits = [TemperatureUnit.Celsius, TemperatureUnit.Fahrenheit, TemperatureUnit.Kelvin];
-    temperatureUnitShortcuts = ['°C', '°F', 'K'];
-    selectedUnit: TemperatureUnit = this.temperatureUnits[0];
+    temperatureUnits = [temperatureUnit.Celsius, temperatureUnit.Fahrenheit, temperatureUnit.Kelvin];
+    selectedUnit: string = this.temperatureUnits[0];
 
     ngAfterViewInit(): void {
         this.onSelectionChange();

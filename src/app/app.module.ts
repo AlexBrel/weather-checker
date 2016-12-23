@@ -16,6 +16,7 @@ import {TemperatureStringPipe} from './common/temperature-string.pipe';
 import {ConvertTemperaturePipe} from './common/convert-temperature.pipe';
 import {FloorTemperaturePipe} from './common/floor-temperature.pipe';
 import {WeatherRequestPipe} from './city-weather/weather-request.pipe';
+import TempColorDirective from './region-weather/temp-color.directive';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, CommonModule, HttpModule],
@@ -30,7 +31,8 @@ import {WeatherRequestPipe} from './city-weather/weather-request.pipe';
         TemperatureStringPipe,
         ConvertTemperaturePipe,
         FloorTemperaturePipe,
-        WeatherRequestPipe
+        WeatherRequestPipe,
+        TempColorDirective
     ],
     bootstrap: [AppComponent]
 })

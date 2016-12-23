@@ -8,15 +8,18 @@ export class TemperatureStringPipe implements PipeTransform {
         if (!weather) {
             return null;
         }
-        let minSymbol = (weather.temp_min < 0) ? '' : '+';
+        let minSymbol = this.getSymbol(weather.temp_min);
 
         if (weather.temp_min === weather.temp_max) {
             return `near ${minSymbol}${weather.temp_min}`;
         } else {
-            let maxSymbol = (weather.temp_max < 0) ? '' : '+';
+            let maxSymbol = this.getSymbol(weather.temp_max);
 
             return `${minSymbol}${weather.temp_min}...${maxSymbol}${weather.temp_max}`;
         }
     }
 
+    private getSymbol(temp: number): string {
+        return (temp < 0) ? '' : '+';
+    }
 }

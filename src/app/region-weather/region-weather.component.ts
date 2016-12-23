@@ -5,8 +5,7 @@ import {URLSearchParams, Response, Http} from '@angular/http';
 
 import commonConstants from '../common/common-constants';
 import City from '../common/city';
-import mockWeatherResponse from './mock-weather-response';
-import TemperatureUnit from '../common/temperature-unit';
+import mockWeatherResponse from './weather-response.mock';
 
 
 @Component({
@@ -18,7 +17,7 @@ export class RegionWeatherComponent implements OnChanges {
     @Output() tableReady = new EventEmitter();
 
     cities: Immutable.List<City>;
-    selectedTempUnit: TemperatureUnit;
+    selectedTempUnit: string;
 
     constructor(private http: Http, private cd: ChangeDetectorRef) {
         this.cd.detach();
@@ -30,7 +29,7 @@ export class RegionWeatherComponent implements OnChanges {
         }
     }
 
-    unitSelected(selectedUnit: TemperatureUnit) {
+    unitSelected(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 

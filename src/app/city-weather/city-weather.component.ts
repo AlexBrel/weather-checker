@@ -1,8 +1,6 @@
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef} from '@angular/core';
 import Immutable = require('immutable');
 
-import TemperatureUnit from '../common/temperature-unit';
-
 @Component({
     selector: 'city-weather',
     templateUrl: 'city-weather.component.html',
@@ -24,7 +22,7 @@ export class CityWeatherComponent {
     selectedCity: string;
     removedCity: string;
     favouriteCity: string;
-    selectedTempUnit: TemperatureUnit;
+    selectedTempUnit: string;
     @ViewChild('potentialCity') cityInput: ElementRef;
 
     constructor() {
@@ -35,7 +33,7 @@ export class CityWeatherComponent {
         }
     }
 
-    unitSelected(selectedUnit: TemperatureUnit) {
+    unitSelected(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 

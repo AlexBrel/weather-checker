@@ -21,7 +21,6 @@ export class MapComponent implements OnChanges {
 
     private showMap() {
         let map: google.maps.Map,
-            marker: google.maps.Marker,
             myLatLng = {
                 lat: this.coordinates.get('lat'),
                 lng: this.coordinates.get('long')
@@ -35,7 +34,7 @@ export class MapComponent implements OnChanges {
         });
 
         // Create a marker and set its position.
-        marker = new google.maps.Marker({
+        new google.maps.Marker({
             map: map,
             position: myLatLng
         });
