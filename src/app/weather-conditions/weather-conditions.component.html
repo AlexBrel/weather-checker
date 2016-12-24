@@ -1,0 +1,5 @@
+<div class="weather-conditions" style="text-align: center" [ngSwitch]="conditions.icon !== ''">
+    <img *ngSwitchCase="true" class="conditions-icon" src="http://openweathermap.org/img/w/{{conditions.icon}}.png"/>
+    <img *ngSwitchDefault class="conditions-icon" src="../../assets/img/no-image-icon.png"/>
+    <div>{{conditions.main}}</div>
+</div>

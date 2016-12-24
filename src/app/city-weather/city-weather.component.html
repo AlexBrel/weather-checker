@@ -24,7 +24,7 @@
         <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
     </select>
     in
-    <temp-unit-selector (unitSelected)="unitSelected($event)"></temp-unit-selector>
+    <temp-unit-selector (selectUnit)="selectUnit($event)"></temp-unit-selector>
     <div *ngIf="selectedCity">
         Temperature: {{selectedCity |
         weatherRequest |

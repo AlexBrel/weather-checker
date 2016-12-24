@@ -33,7 +33,7 @@ export class CityWeatherComponent {
         }
     }
 
-    unitSelected(selectedUnit: string) {
+    selectUnit(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 

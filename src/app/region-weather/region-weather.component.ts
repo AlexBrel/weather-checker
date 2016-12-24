@@ -1,5 +1,8 @@
 import Immutable = require('immutable');
-import {Component, Input, OnChanges, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import {
+    Component, Input, Output, EventEmitter, ChangeDetectorRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import {Observable} from 'rxjs';
 import {URLSearchParams, Response, Http} from '@angular/http';
 
@@ -10,26 +13,29 @@ import mockWeatherResponse from './weather-response.mock';
 
 @Component({
     selector: 'region-weather',
-    templateUrl: 'region-weather.component.html'
+    templateUrl: 'region-weather.component.html',
+    styleUrls: ['region-weather.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegionWeatherComponent implements OnChanges {
-    @Input() coordinates: Immutable.Map<string, number>;
+export class RegionWeatherComponent {
+    private coords: Immutable.Map<string, number>;
+
+    @Input() set coordinates(coords: Immutable.Map<string, number>) {
+        if (coords) {
+            this.coords = coords;
+            this.generateTable();
+        }
+    };
+
     @Output() tableReady = new EventEmitter();
 
     cities: Immutable.List<City>;
     selectedTempUnit: string;
 
     constructor(private http: Http, private cd: ChangeDetectorRef) {
-        this.cd.detach();
     }
 
-    ngOnChanges() {
-        if (this.coordinates) {
-            this.generateTable();
-        }
-    }
-
-    unitSelected(selectedUnit: string) {
+    selectUnit(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 
@@ -38,7 +44,7 @@ export class RegionWeatherComponent implements OnChanges {
             (citiesWeather: Immutable.List<City>) => {
                 this.cities = citiesWeather;
                 this.tableReady.emit({error: null, isTableReady: true});
-                this.cd.detectChanges();
+                this.cd.markForCheck();
             },
             (error: Error) => {
                 this.tableReady.emit({error: error, isTableReady: false});
@@ -49,8 +55,8 @@ export class RegionWeatherComponent implements OnChanges {
     // TODO: move it in service in future
     private getRegionWeather(): Observable<Immutable.List<City>> {
         let params: URLSearchParams = new URLSearchParams();
-        params.set('lat', this.coordinates.get('lat').toString());
-        params.set('lon', this.coordinates.get('long').toString());
+        params.set('lat', this.coords.get('lat').toString());
+        params.set('lon', this.coords.get('long').toString());
         params.set('cnt', commonConstants.owm.count.toString());
         params.set('lang', commonConstants.owm.lang);
         params.set('units', commonConstants.owm.units);

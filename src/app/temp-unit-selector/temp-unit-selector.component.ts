@@ -10,15 +10,15 @@ import temperatureUnit from '../common/temperature-unit';
 })
 export class TemperatureUnitSelectorComponent implements AfterViewInit {
 
-    @Output() unitSelected = new EventEmitter();
+    @Output() selectUnit = new EventEmitter();
     temperatureUnits = [temperatureUnit.Celsius, temperatureUnit.Fahrenheit, temperatureUnit.Kelvin];
     selectedUnit: string = this.temperatureUnits[0];
 
     ngAfterViewInit(): void {
-        this.onSelectionChange();
+        this.changeSelection();
     }
 
-    onSelectionChange() {
-        this.unitSelected.emit(this.selectedUnit);
+    changeSelection() {
+        this.selectUnit.emit(this.selectedUnit);
     }
 }
