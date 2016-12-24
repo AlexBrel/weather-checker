@@ -1,5 +1,6 @@
 <h4 class="cities-weather-header">Weather in your region</h4>
 <div class="table-responsive">
+    <wind-arrow></wind-arrow>
     <table id="weather-table" class="table">
         <thead>
         <tr>
@@ -10,14 +11,16 @@
                 <temp-unit-selector (unitSelected)="unitSelected($event)"></temp-unit-selector>
             </th>
             <th>Pressure, GPa</th>
+            <th>Wind, M/sec</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let city of cities; let i = index">
+        <tr [tempColor]="city.main" *ngFor="let city of cities; let i = index">
             <td>{{i + 1}}</td>
             <td>{{city.name}}</td>
             <td>{{city.main| convertTemperature: selectedTempUnit| floorTemperature| temperatureString}}</td>
             <td>{{city.main.pressure}}</td>
+            <td><wind-arrow [wind]="city.wind"></wind-arrow></td>
         </tr>
         </tbody>
     </table>
