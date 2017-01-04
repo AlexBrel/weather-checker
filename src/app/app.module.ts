@@ -19,7 +19,7 @@ import {WeatherRequestPipe} from './city-weather/weather-request.pipe';
 import TempColorDirective from './region-weather/temp-color.directive';
 import WindArrowComponent from './wind-arrow/wind-arrow.component';
 import WeatherConditions from './weather-conditions/weather-conditions.component';
-import IfDirective from './common/my-if.directive';
+import DirectionalArrowDirective from './wind-arrow/directional-arrow.directive';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, CommonModule, HttpModule],
@@ -38,7 +38,7 @@ import IfDirective from './common/my-if.directive';
         TempColorDirective,
         WindArrowComponent,
         WeatherConditions,
-        IfDirective
+        DirectionalArrowDirective
     ],
     bootstrap: [AppComponent]
 })

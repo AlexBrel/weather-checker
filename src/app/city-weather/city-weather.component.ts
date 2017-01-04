@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef} from '@angular/core';
-import Immutable = require('immutable');
+import {List} from 'immutable';
 
 @Component({
     selector: 'city-weather',
@@ -8,7 +8,7 @@ import Immutable = require('immutable');
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
-    availableCities: Immutable.List<string> = Immutable.List.of(
+    availableCities: List<string> = List.of(
         'Minsk',
         'Zhdanovichy',
         'Baravaya',
@@ -23,7 +23,7 @@ export class CityWeatherComponent {
     removedCity: string;
     favouriteCity: string;
     selectedTempUnit: string;
-    @ViewChild('potentialCity') cityInput: ElementRef;
+    @ViewChild('cityInput') cityInput: ElementRef;
 
     constructor() {
         let storedCity = localStorage.getItem('favouriteCity');
@@ -38,7 +38,13 @@ export class CityWeatherComponent {
     }
 
     addCity() {
-        this.availableCities = this.availableCities.push(this.cityInput.nativeElement.value);
+        let newCity = this.cityInput.nativeElement.value;
+
+        if (this.availableCities.find(x => x === newCity)) {
+            alert('City is already defined');
+        } else {
+            this.availableCities = this.availableCities.push(this.cityInput.nativeElement.value);
+        }
     }
 
     removeCity() {

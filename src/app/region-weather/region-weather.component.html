@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr [tempColor]="city.main" *ngFor="let city of cities; let i = index">
+        <tr *ngFor="let city of cities; let i = index" [tempColor]="city.main" >
             <td>{{i + 1}}</td>
             <td>{{city.name}}</td>
             <td><weather-conditions [conditions]="city.weather[0]"></weather-conditions></td>

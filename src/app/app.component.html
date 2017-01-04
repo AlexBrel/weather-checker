@@ -3,9 +3,9 @@
     <main>
         <div class="top-layout">
             <city-weather></city-weather>
-            <spinner *myIf="isLoading" class="spinner-wrapper"></spinner>
+            <spinner *ngIf="isLoading" class="spinner-wrapper"></spinner>
         </div>
-        <region-weather *myIf="coordinates"
+        <region-weather *ngIf="coordinates"
                         [ngClass]="{closed: !isWeatherTableReady && isLoading }"
                         [coordinates]="coordinates"
                         (tableReady)="weatherTableReady($event)">

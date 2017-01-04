@@ -23,9 +23,9 @@ export class WeatherRequestPipe implements PipeTransform {
             return Observable.of(foundCachedCity.main);
         } else {
             return this.getCityWeather(cityName)
-                .flatMap((newCity: City) => {
+                .map((newCity: City) => {
                     this.cachedCitiesWeather.push(newCity);
-                    return Observable.of(newCity.main);
+                    return newCity.main;
                 })
                 .catch(error => {
                     console.error(`Request Failed: ${error}`);
