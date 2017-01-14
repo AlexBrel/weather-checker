@@ -55,7 +55,7 @@ export class RegionWeatherComponent {
     // TODO: move it in service in future
     private getRegionWeather(): Observable<Immutable.List<City>> {
         let params: URLSearchParams = new URLSearchParams(),
-            $weatherThread: Observable<Immutable.List<City>>;
+            $weather: Observable<Immutable.List<City>>;
 
         params.set('lat', this.coords.get('lat').toString());
         params.set('lon', this.coords.get('long').toString());
@@ -64,7 +64,7 @@ export class RegionWeatherComponent {
         params.set('units', commonConstants.owm.units);
         params.set('APPID', commonConstants.owm.apiID);
 
-        $weatherThread = this.http.get(commonConstants.owm.regionUrl, {search: params})
+        $weather = this.http.get(commonConstants.owm.regionUrl, {search: params})
             .map((resp: Response) => Immutable.List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
@@ -73,10 +73,10 @@ export class RegionWeatherComponent {
             })
             .observeOn(Scheduler.async);
 
-        return $weatherThread.expand(() => {
+        return $weather.expand(() => {
             return Observable.timer(5000).concatMap(() => {
                 this.tableReady.emit({error: null, isTableReady: false});
-                return $weatherThread;
+                return $weather;
             });
         });
     }
