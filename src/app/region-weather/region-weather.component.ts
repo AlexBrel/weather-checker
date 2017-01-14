@@ -3,7 +3,7 @@ import {
     Component, Input, Output, EventEmitter, ChangeDetectorRef,
     ChangeDetectionStrategy
 } from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Scheduler} from 'rxjs';
 import {URLSearchParams, Response, Http} from '@angular/http';
 
 import commonConstants from '../common/common-constants';
@@ -54,7 +54,9 @@ export class RegionWeatherComponent {
 
     // TODO: move it in service in future
     private getRegionWeather(): Observable<Immutable.List<City>> {
-        let params: URLSearchParams = new URLSearchParams();
+        let params: URLSearchParams = new URLSearchParams(),
+            $weatherThread: Observable<Immutable.List<City>>;
+
         params.set('lat', this.coords.get('lat').toString());
         params.set('lon', this.coords.get('long').toString());
         params.set('cnt', commonConstants.owm.count.toString());
@@ -62,18 +64,19 @@ export class RegionWeatherComponent {
         params.set('units', commonConstants.owm.units);
         params.set('APPID', commonConstants.owm.apiID);
 
-        let request = this.http.get(commonConstants.owm.regionUrl, {search: params})
+        $weatherThread = this.http.get(commonConstants.owm.regionUrl, {search: params})
             .map((resp: Response) => Immutable.List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
                 console.error(`Request Failed: ${error}`);
                 return Observable.of(Immutable.List.of(...mockWeatherResponse));
-            });
+            })
+            .observeOn(Scheduler.async);
 
-        return request.expand(() => {
+        return $weatherThread.expand(() => {
             return Observable.timer(5000).concatMap(() => {
                 this.tableReady.emit({error: null, isTableReady: false});
-                return request;
+                return $weatherThread;
             });
         });
     }

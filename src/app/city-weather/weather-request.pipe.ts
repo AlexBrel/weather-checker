@@ -22,21 +22,13 @@ export class WeatherRequestPipe implements PipeTransform {
         if (foundCachedCity) {
             return Observable.of(foundCachedCity.main);
         } else {
-            return this.getCityWeather(cityName)
-                .map((newCity: City) => {
-                    this.cachedCitiesWeather.push(newCity);
-                    return newCity.main;
-                })
-                .catch(error => {
-                    console.error(`Request Failed: ${error}`);
-                    return Observable.throw(error);
-                });
+            return this.getCityWeather(cityName);
         }
     }
 
 
     // TODO: move it in service in future
-    private getCityWeather(cityName: string): Observable<City> {
+    private getCityWeather(cityName: string): Observable<Weather> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('q', cityName);
         params.set('lang', commonConstants.owm.lang);
@@ -49,6 +41,14 @@ export class WeatherRequestPipe implements PipeTransform {
             .catch(error => {
                 console.error(`Request Failed: ${error}`);
                 return Observable.of({name: cityName, main: mockCityWeatherResponse.main});
+            })
+            .flatMap((newCity: City) => {
+                this.cachedCitiesWeather.push(newCity);
+                return Observable.of(newCity.main);
+            })
+            .catch(error => {
+                console.error(`Request Failed: ${error}`);
+                return Observable.throw(error);
             });
 
     }
