@@ -1,11 +1,11 @@
 import {Component, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 
-import temperatureUnit from '../common/temperature-unit';
+import temperatureUnit from '../../common/temperature-unit';
 
 @Component({
     selector: 'temp-unit-selector',
-    templateUrl: './temp-unit-selector.component.html',
-    styleUrls: ['./temp-unit-selector.component.css'],
+    templateUrl: 'temp-unit-selector.component.html',
+    styleUrls: ['temp-unit-selector.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemperatureUnitSelectorComponent implements AfterViewInit {
