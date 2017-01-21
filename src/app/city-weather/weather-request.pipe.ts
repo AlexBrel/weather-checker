@@ -1,17 +1,15 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {URLSearchParams, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 
-import commonConstants from '../common/common-constants';
 import City from '../common/city';
-import mockCityWeatherResponse from './city-weather-response.mock';
 import Weather from '../common/weather';
+import OpenWeatherMapService from '../shared/open-weather-map.service';
 
 @Pipe({name: 'weatherRequest', pure: true})
 export class WeatherRequestPipe implements PipeTransform {
     cachedCitiesWeather: City[] = [];
 
-    constructor(private http: Http) {
+    constructor(private owmService: OpenWeatherMapService) {
     }
 
     transform(cityName: string): Observable<Weather> {
@@ -26,25 +24,11 @@ export class WeatherRequestPipe implements PipeTransform {
         }
     }
 
-
-    // TODO: move it in service in future
     private getCityWeather(cityName: string): Observable<Weather> {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('q', cityName);
-        params.set('lang', commonConstants.owm.lang);
-        params.set('units', commonConstants.owm.units);
-        params.set('APPID', commonConstants.owm.apiID);
-
-        // Http request-
-        return this.http.get(commonConstants.owm.cityUrl, {search: params})
-            .map((resp: Response) => resp.json() as City)
-            .catch(error => {
-                console.error(`Request Failed: ${error}`);
-                return Observable.of({name: cityName, main: mockCityWeatherResponse.main});
-            })
-            .flatMap((newCity: City) => {
+        return this.owmService.getCityWeather(cityName)
+            .map((newCity: City) => {
                 this.cachedCitiesWeather.push(newCity);
-                return Observable.of(newCity.main);
+                return newCity.main;
             })
             .catch(error => {
                 console.error(`Request Failed: ${error}`);

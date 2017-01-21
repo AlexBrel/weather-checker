@@ -3,13 +3,10 @@ import {
     Component, Input, Output, EventEmitter, ChangeDetectorRef,
     ChangeDetectionStrategy
 } from '@angular/core';
-import {Observable, Scheduler} from 'rxjs';
-import {URLSearchParams, Response, Http} from '@angular/http';
+import {Subject} from 'rxjs';
 
-import commonConstants from '../common/common-constants';
 import City from '../common/city';
-import mockWeatherResponse from './weather-response.mock';
-
+import OpenWeatherMapService from '../shared/open-weather-map.service';
 
 @Component({
     selector: 'region-weather',
@@ -23,7 +20,7 @@ export class RegionWeatherComponent {
     @Input() set coordinates(coords: Immutable.Map<string, number>) {
         if (coords) {
             this.coords = coords;
-            this.generateTable();
+            this.updateTable();
         }
     };
 
@@ -32,15 +29,18 @@ export class RegionWeatherComponent {
     cities: Immutable.List<City>;
     selectedTempUnit: string;
 
-    constructor(private http: Http, private cd: ChangeDetectorRef) {
+    constructor(private owmService: OpenWeatherMapService, private cd: ChangeDetectorRef) {
     }
 
     selectUnit(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 
-    private generateTable() {
-        this.getRegionWeather().subscribe(
+    private updateTable() {
+        let $isWeatherUpdates = new Subject<boolean>(),
+            $regionWeather = this.owmService.getRegionWeather(this.coords, $isWeatherUpdates);
+
+        $regionWeather.subscribe(
             (citiesWeather: Immutable.List<City>) => {
                 this.cities = citiesWeather;
                 this.tableReady.emit({error: null, isTableReady: true});
@@ -50,34 +50,9 @@ export class RegionWeatherComponent {
                 this.tableReady.emit({error: error, isTableReady: false});
             }
         );
-    }
 
-    // TODO: move it in service in future
-    private getRegionWeather(): Observable<Immutable.List<City>> {
-        let params: URLSearchParams = new URLSearchParams(),
-            $weather: Observable<Immutable.List<City>>;
-
-        params.set('lat', this.coords.get('lat').toString());
-        params.set('lon', this.coords.get('long').toString());
-        params.set('cnt', commonConstants.owm.count.toString());
-        params.set('lang', commonConstants.owm.lang);
-        params.set('units', commonConstants.owm.units);
-        params.set('APPID', commonConstants.owm.apiID);
-
-        $weather = this.http.get(commonConstants.owm.regionUrl, {search: params})
-            .map((resp: Response) => Immutable.List.of(...resp.json().list))
-            .catch((error) => {
-                // TODO: change the next line to commented reject as soon as endpoint work stable
-                console.error(`Request Failed: ${error}`);
-                return Observable.of(Immutable.List.of(...mockWeatherResponse));
-            })
-            .observeOn(Scheduler.async);
-
-        return $weather.expand(() => {
-            return Observable.timer(5000).concatMap(() => {
-                this.tableReady.emit({error: null, isTableReady: false});
-                return $weather;
-            });
+        $isWeatherUpdates.subscribe(() => {
+            this.tableReady.emit({error: null, isTableReady: false});
         });
     }
 }

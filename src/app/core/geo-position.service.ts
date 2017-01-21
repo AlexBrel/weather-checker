@@ -1,7 +1,9 @@
 import Immutable = require('immutable');
 import {Observable, Observer} from 'rxjs';
+import {Injectable} from '@angular/core';
 
-export default class GeoPositionService {
+@Injectable()
+export class GeoPositionService {
     public getCoordinates(): Observable<Immutable.Map<string, number>> {
         return Observable.create((observer: Observer<Immutable.Map<string, number>>) => {
             if (window.navigator && window.navigator.geolocation) {

@@ -2,7 +2,7 @@ import Immutable = require('immutable');
 import {Component, OnInit, NgZone} from '@angular/core';
 
 import TableReadyEvent from './region-weather/table-ready-event';
-import GeoPositionService from "./shared/geo-position.service";
+import {GeoPositionService} from './core/geo-position.service';
 
 @Component({
     selector: 'app',
