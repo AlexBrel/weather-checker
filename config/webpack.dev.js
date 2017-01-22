@@ -3,6 +3,9 @@ const webpack = require("webpack"),
 	commonConfig = require('./webpack.common.js');
 
 module.exports = webpackMerge(commonConfig, {
+	entry: {
+		main: './src/main.ts'
+	},
 	devtool: "#source-map",
 	debug: true,
 	stats: {

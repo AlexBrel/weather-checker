@@ -1,7 +1,7 @@
-import Immutable = require('immutable');
+import {Map} from 'immutable';
 import {Component, OnInit, NgZone} from '@angular/core';
 
-import TableReadyEvent from './region-weather/table-ready-event';
+import {TableReadyEvent} from './region-weather/table-ready-event';
 import {GeoPositionService} from './core/geo-position.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {GeoPositionService} from './core/geo-position.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    coordinates: Immutable.Map<string, number>;
+    coordinates: Map<string, number>;
     isWeatherTableReady: boolean = false;
     isLoading: boolean = true;
 
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.geoPositionService.getCoordinates().subscribe(
-            (coordinates: Immutable.Map<string, number>) => {
+            (coordinates: Map<string, number>) => {
                 this.coordinates = coordinates;
             },
             (error: Error) => {

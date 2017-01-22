@@ -1,12 +1,12 @@
-import Immutable = require('immutable');
+import {Map, List} from 'immutable';
 import {
     Component, Input, Output, EventEmitter, ChangeDetectorRef,
     ChangeDetectionStrategy
 } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import City from '../common/city';
-import OpenWeatherMapService from '../shared/open-weather-map.service';
+import {City} from '../common/city';
+import {OpenWeatherMapService} from '../shared/open-weather-map.service';
 
 @Component({
     selector: 'region-weather',
@@ -15,9 +15,9 @@ import OpenWeatherMapService from '../shared/open-weather-map.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegionWeatherComponent {
-    private coords: Immutable.Map<string, number>;
+    private coords: Map<string, number>;
 
-    @Input() set coordinates(coords: Immutable.Map<string, number>) {
+    @Input() set coordinates(coords: Map<string, number>) {
         if (coords) {
             this.coords = coords;
             this.updateTable();
@@ -26,7 +26,7 @@ export class RegionWeatherComponent {
 
     @Output() tableReady = new EventEmitter();
 
-    cities: Immutable.List<City>;
+    cities: List<City>;
     selectedTempUnit: string;
 
     constructor(private owmService: OpenWeatherMapService, private cd: ChangeDetectorRef) {
@@ -41,7 +41,7 @@ export class RegionWeatherComponent {
             $regionWeather = this.owmService.getRegionWeather(this.coords, $isWeatherUpdates);
 
         $regionWeather.subscribe(
-            (citiesWeather: Immutable.List<City>) => {
+            (citiesWeather: List<City>) => {
                 this.cities = citiesWeather;
                 this.tableReady.emit({error: null, isTableReady: true});
                 this.cd.markForCheck();

@@ -1,5 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import Wind from '../../common/wind';
+import {Wind} from '../../common/wind';
 
 @Component({
     selector: 'wind-arrow',
@@ -8,7 +8,7 @@ import Wind from '../../common/wind';
     changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export default class WindArrowComponent {
+export class WindArrowComponent {
     windSpeed: number;
     angle: number;
 

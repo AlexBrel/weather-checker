@@ -1,7 +1,7 @@
-import Immutable = require('immutable');
+import {Map} from 'immutable';
 import {Component, Input, ElementRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
-import commonConstants from '../common/common-constants';
+import {commonConstants} from '../common/common-constants';
 
 @Component({
     selector: 'map',
@@ -10,7 +10,7 @@ import commonConstants from '../common/common-constants';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent {
-    @Input() set coordinates(coords: Immutable.Map<string, number>) {
+    @Input() set coordinates(coords: Map<string, number>) {
         if (coords) {
             this.coords = coords;
             this.showMap();
@@ -19,7 +19,7 @@ export class MapComponent {
 
     @ViewChild('googleMap') googleMap: ElementRef;
 
-    private coords: Immutable.Map<string, number>;
+    private coords: Map<string, number>;
 
     private showMap() {
         let map: google.maps.Map,

@@ -8,3 +8,5 @@ switch (process.env.NODE_ENV) {
 	default:
 		module.exports = require('./webpack.dev.js');
 }
+
+console.log(module.exports);

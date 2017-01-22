@@ -1,6 +1,6 @@
 import {Component, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
 
-import temperatureUnit from '../../common/temperature-unit';
+import {temperatureUnit} from '../../common/temperature-unit';
 
 @Component({
     selector: 'temp-unit-selector',

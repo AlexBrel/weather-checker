@@ -3,10 +3,6 @@ const webpack = require('webpack'),
     CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: {
-        main: './src/main.ts',
-        vendor: './src/vendor.ts'
-    },
     output: {
         path: "./dist",
         filename: "[name].bundle.js"
