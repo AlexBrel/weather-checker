@@ -7,10 +7,11 @@ import commonConstants from '../common/common-constants';
 import City from '../common/city';
 import mockCityWeatherResponse from './mock-requests/city-weather-response.mock';
 import mockWeatherResponse from './mock-requests/weather-response.mock';
+import {LoggerService} from '../core/logger.service';
 
 @Injectable()
 export default class OpenWeatherMapService {
-    constructor(private http: Http) {
+    constructor(private http: Http, private logger: LoggerService) {
     }
 
     public getCityWeather(cityName: string): Observable<City> {
@@ -23,7 +24,7 @@ export default class OpenWeatherMapService {
         return this.http.get(commonConstants.owm.cityUrl, {search: params})
             .map((resp: Response) => resp.json() as City)
             .catch(error => {
-                console.error(`Request Failed: ${error}`);
+                this.logger.error(error);
                 return Observable.of({name: cityName, main: mockCityWeatherResponse.main});
             });
     }
@@ -51,7 +52,7 @@ export default class OpenWeatherMapService {
             .map((resp: Response) => Immutable.List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
-                console.error(`Request Failed: ${error}`);
+                this.logger.error(error);
                 return Observable.of(Immutable.List.of(...mockWeatherResponse));
             })
             .subscribe(

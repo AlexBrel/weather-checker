@@ -8,6 +8,7 @@ import {SpinnerComponent} from './spinner/spinner.component';
 import {GeoPositionService} from './geo-position.service';
 import {MainFooterComponent} from './main-footer/main-footer.component';
 import {MainHeaderComponent} from './main-header/main-header.component';
+import {ENV_PROVIDERS} from './environment';
 
 @NgModule({
     imports: [
@@ -21,7 +22,10 @@ import {MainHeaderComponent} from './main-header/main-header.component';
         MainHeaderComponent,
         MainFooterComponent
     ],
-    providers: [GeoPositionService],
+    providers: [
+        GeoPositionService,
+        ...ENV_PROVIDERS
+    ],
     exports: [
         BrowserModule,
         CommonModule,
