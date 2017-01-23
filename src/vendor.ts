@@ -1,3 +1,4 @@
+import 'zone.js/dist/zone';
 import 'reflect-metadata';
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
@@ -13,5 +14,3 @@ import '@angularclass/hmr';
 // RxJS
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-
-import 'zone.js/dist/zone';
