@@ -1,6 +1,6 @@
 import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
 
-import WeatherConditions from '../common/weather-conditions';
+import {WeatherConditions} from '../../common/weather-conditions';
 
 @Component({
     selector: 'weather-conditions',
@@ -8,6 +8,6 @@ import WeatherConditions from '../common/weather-conditions';
     styleUrls: ['weather-conditions.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class WeatherConditionsComponent {
+export class WeatherConditionsComponent {
     @Input() conditions: WeatherConditions;
 }

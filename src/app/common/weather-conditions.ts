@@ -1,4 +1,4 @@
-export default class WeatherConditions {
+export class WeatherConditions {
     icon: string;
     main: string;
 };

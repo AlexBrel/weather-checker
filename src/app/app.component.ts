@@ -1,7 +1,8 @@
-import Immutable = require('immutable');
+import {Map} from 'immutable';
 import {Component, OnInit, NgZone} from '@angular/core';
 
-import TableReadyEvent from './region-weather/table-ready-event';
+import {TableReadyEvent} from './region-weather/table-ready-event';
+import {GeoPositionService} from './core/geo-position.service';
 
 @Component({
     selector: 'app',
@@ -9,13 +10,13 @@ import TableReadyEvent from './region-weather/table-ready-event';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    coordinates: Immutable.Map<string, number>;
+    coordinates: Map<string, number>;
     isWeatherTableReady: boolean = false;
     isLoading: boolean = true;
 
     private time: number;
 
-    constructor(private zone: NgZone) {
+    constructor(private zone: NgZone, private geoPositionService: GeoPositionService) {
         this.zone.onUnstable.subscribe(() => {
             this.time = performance.now();
         });
@@ -26,13 +27,13 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (window.navigator && window.navigator.geolocation) {
-            window.navigator.geolocation.getCurrentPosition((position: Position) => {
-                this.coordinates  = Immutable.fromJS({lat: position.coords.latitude, long: position.coords.longitude});
+        this.geoPositionService.getCoordinates().subscribe(
+            (coordinates: Map<string, number>) => {
+                this.coordinates = coordinates;
+            },
+            (error: Error) => {
+                console.error(error);
             });
-        } else {
-            console.log('Geoposition is not defined');
-        }
     }
 
     weatherTableReady(event: TableReadyEvent) {

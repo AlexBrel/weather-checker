@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-import Weather from './weather';
-import temperatureUnit from './temperature-unit';
+import {Weather} from '../common/weather';
+import {temperatureUnit} from '../common/temperature-unit';
 
 @Pipe({name: 'convertTemperature'})
 export class ConvertTemperaturePipe implements PipeTransform {
