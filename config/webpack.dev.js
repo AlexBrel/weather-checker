@@ -1,16 +1,17 @@
 const webpack = require("webpack"),
 	webpackMerge = require('webpack-merge'),
-	DefinePlugin = require('webpack/lib/DefinePlugin'),
 	commonConfig = require('./webpack.common.js');
 
-module.exports = webpackMerge(commonConfig, {
+module.exports = webpackMerge(commonConfig('development'), {
+	entry: {
+		main: './src/main.ts'
+	},
 	plugins: [
-		new DefinePlugin({
-			'process.env.ENV': JSON.stringify('development')
+		new webpack.LoaderOptionsPlugin({
+			debug: true
 		})
 	],
 	devtool: "#source-map",
-	debug: true,
 	stats: {
 		colors: true,
 		modules: true,
@@ -19,7 +20,6 @@ module.exports = webpackMerge(commonConfig, {
 	},
 	devServer: {
 		contentBase: './dist',
-		info: true,
 		hot: false,
 		inline: true
 	}

@@ -5,7 +5,7 @@ import {TemperatureUnitSelectorComponent} from './temp-unit-selector/temp-unit-s
 import {TemperatureStringPipe} from './temperature-string.pipe';
 import {ConvertTemperaturePipe} from './convert-temperature.pipe';
 import {FloorTemperaturePipe} from './floor-temperature.pipe';
-import OpenWeatherMapService from './open-weather-map.service';
+import {OpenWeatherMapService} from './open-weather-map.service';
 
 
 @NgModule({

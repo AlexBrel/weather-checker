@@ -1,4 +1,4 @@
-const commonConstants = {
+export const commonConstants = {
     // owm - prefix for openweathermap endpoint
     owm: {
         regionUrl: 'http://api.openweathermap.org/data/2.5/find',
@@ -13,5 +13,3 @@ const commonConstants = {
         zoom: 11
     }
 };
-
-export default commonConstants;

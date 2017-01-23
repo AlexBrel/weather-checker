@@ -1,9 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import City from '../common/city';
-import Weather from '../common/weather';
-import OpenWeatherMapService from '../shared/open-weather-map.service';
+import {City} from '../common/city';
+import {Weather} from '../common/weather';
+import {OpenWeatherMapService} from '../shared/open-weather-map.service';
 
 @Pipe({name: 'weatherRequest', pure: true})
 export class WeatherRequestPipe implements PipeTransform {
@@ -30,7 +30,7 @@ export class WeatherRequestPipe implements PipeTransform {
                 this.cachedCitiesWeather.push(newCity);
                 return newCity.main;
             })
-            .catch(error => {
+            .catch((error: Error) => {
                 console.error(`Request Failed: ${error}`);
                 return Observable.throw(error);
             });

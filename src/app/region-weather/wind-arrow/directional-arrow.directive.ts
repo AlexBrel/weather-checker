@@ -1,8 +1,8 @@
 import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import ArrowCoords from './arrow-coords';
+import {ArrowCoords} from './arrow-coords';
 
 @Directive({selector: '[directArrow]'})
-export default class DirectionalArrowDirective {
+export class DirectionalArrowDirective {
     constructor(private templateRef: TemplateRef<number>, private viewContainer: ViewContainerRef) {
     }
 

@@ -1,16 +1,16 @@
-import Immutable = require('immutable');
+import {Map, List} from 'immutable';
 import {Observable, Subject} from 'rxjs';
 import {Http, URLSearchParams, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 
-import commonConstants from '../common/common-constants';
-import City from '../common/city';
-import mockCityWeatherResponse from './mock-requests/city-weather-response.mock';
-import mockWeatherResponse from './mock-requests/weather-response.mock';
+import {commonConstants} from '../common/common-constants';
+import {City} from '../common/city';
+import {mockCityWeatherResponse} from './mock-requests/city-weather-response.mock';
+import {mockWeatherResponse} from './mock-requests/weather-response.mock';
 import {LoggerService} from '../core/logger.service';
 
 @Injectable()
-export default class OpenWeatherMapService {
+export class OpenWeatherMapService {
     constructor(private http: Http, private logger: LoggerService) {
     }
 
@@ -29,8 +29,8 @@ export default class OpenWeatherMapService {
             });
     }
 
-    public getRegionWeather(coords: Immutable.Map<string, number>, $isWeatherUpdates: Subject<boolean>) {
-        let $regionWeather = new Subject<Immutable.List<City>>(),
+    public getRegionWeather(coords: Map<string, number>, $isWeatherUpdates: Subject<boolean>) {
+        let $regionWeather = new Subject<List<City>>(),
             params: URLSearchParams = new URLSearchParams(),
             timePeriod = 5000;
 
@@ -45,18 +45,18 @@ export default class OpenWeatherMapService {
         return $regionWeather;
     }
 
-    private updatePeriodicallyRegionWeather($regionWeather: Subject<Immutable.List<City>>, $isWeatherUpdates: Subject<boolean>, timeToWait: number, params: URLSearchParams) {
+    private updatePeriodicallyRegionWeather($regionWeather: Subject<List<City>>, $isWeatherUpdates: Subject<boolean>, timeToWait: number, params: URLSearchParams) {
         $isWeatherUpdates.next(true);
 
         this.http.get(commonConstants.owm.regionUrl, {search: params})
-            .map((resp: Response) => Immutable.List.of(...resp.json().list))
+            .map((resp: Response) => List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
                 this.logger.error(error);
-                return Observable.of(Immutable.List.of(...mockWeatherResponse));
+                return Observable.of(List.of(...mockWeatherResponse));
             })
             .subscribe(
-                (regionWeather: Immutable.List<City>) => {
+                (regionWeather: List<City>) => {
                     $regionWeather.next(regionWeather);
 
                     setTimeout(() => {

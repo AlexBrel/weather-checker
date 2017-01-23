@@ -1,9 +1,9 @@
 import {Directive, ElementRef, Renderer, Input} from '@angular/core';
 
-import Weather from '../common/weather';
+import {Weather} from '../common/weather';
 
 @Directive({selector: '[tempColor]'})
-export default class TempColorDirective {
+export class TempColorDirective {
     @Input() set tempColor(weather: Weather) {
         this.updateColor(weather);
     }
