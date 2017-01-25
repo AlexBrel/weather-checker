@@ -1,5 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import {Wind} from '../../common/wind';
+import {Wind} from '../../core/wind';
 
 @Component({
     selector: 'wind-arrow',

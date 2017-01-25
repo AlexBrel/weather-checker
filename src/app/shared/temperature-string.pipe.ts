@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-import {Weather} from '../common/weather';
+import {Weather} from '../core/weather';
 
 @Pipe({name: 'temperatureString'})
 export class TemperatureStringPipe implements PipeTransform {

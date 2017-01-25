@@ -4,7 +4,7 @@ const webpack = require('webpack'),
 	HtmlWebpackPlugin = require('html-webpack-plugin'),
 	CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = function (ENV) {
+module.exports = function (env) {
 	return {
 		entry: {
 			vendor: './src/vendor.ts'
@@ -24,7 +24,7 @@ module.exports = function (ENV) {
 		},
 		plugins: [
 			new DefinePlugin({
-				'process.env.ENV': JSON.stringify(ENV)
+				'process.env.ENV': JSON.stringify(env)
 			}),
 			new webpack.optimize.CommonsChunkPlugin({
 				names: ['common'],
@@ -37,5 +37,5 @@ module.exports = function (ENV) {
 			}),
 			new CopyWebpackPlugin([{from: './src/assets', to: 'assets'}])
 		]
-	}
+	};
 };

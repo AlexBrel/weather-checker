@@ -3,8 +3,8 @@ import {Observable, Subject} from 'rxjs';
 import {Http, URLSearchParams, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 
-import {commonConstants} from '../common/common-constants';
-import {City} from '../common/city';
+import {commonConstants} from '../core/common-constants';
+import {City} from '../core/city';
 import {mockCityWeatherResponse} from './mock-requests/city-weather-response.mock';
 import {mockWeatherResponse} from './mock-requests/weather-response.mock';
 import {LoggerService} from '../core/logger/logger.service';

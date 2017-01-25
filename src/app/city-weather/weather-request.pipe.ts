@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {City} from '../common/city';
-import {Weather} from '../common/weather';
+import {City} from '../core/city';
+import {Weather} from '../core/weather';
 import {OpenWeatherMapService} from '../shared/open-weather-map.service';
 
 @Pipe({name: 'weatherRequest', pure: true})

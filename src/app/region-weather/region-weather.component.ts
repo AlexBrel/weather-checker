@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {City} from '../common/city';
+import {City} from '../core/city';
 import {OpenWeatherMapService} from '../shared/open-weather-map.service';
 
 @Component({

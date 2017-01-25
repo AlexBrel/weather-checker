@@ -1,7 +1,7 @@
 import {Map} from 'immutable';
 import {Component, Input, ElementRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
-import {commonConstants} from '../common/common-constants';
+import {commonConstants} from '../core/common-constants';
 
 @Component({
     selector: 'map',

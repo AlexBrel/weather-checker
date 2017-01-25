@@ -1,6 +1,6 @@
 import {Directive, ElementRef, Renderer, Input} from '@angular/core';
 
-import {Weather} from '../common/weather';
+import {Weather} from '../core/weather';
 
 @Directive({selector: '[tempColor]'})
 export class TempColorDirective {

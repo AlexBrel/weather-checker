@@ -10,18 +10,26 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
+    "outDir": "./build",
+    "noEmit": true,
     "typeRoots": [
       "./node_modules/@types"
     ],
     "types": [
       "core-js",
       "googlemaps",
-      "hammerjs",
       "node",
       "source-map",
       "uglify-js",
       "webpack"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "logger": [
+        "src/app/core/logger/prod-logger.service",
+        "src/app/core/logger/dev-logger.service"
+      ]
+    }
   },
   "exclude": [
     "node_modules",
@@ -29,7 +37,8 @@
     "**/*.ngfactory.ts",
     "**/*.shim.ts",
     "src/main*.ts",
-    "src/vendor.ts"
+    "src/vendor.ts",
+    "**/*environment.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true
