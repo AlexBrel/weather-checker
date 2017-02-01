@@ -1,7 +1,10 @@
 import {Map} from 'immutable';
-import {Component, Input, ElementRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ElementRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Store} from '@ngrx/store';
 
 import {commonConstants} from '../core/common-constants';
+import {State} from '../../states/states';
+import {getCoords} from '../../reducers/geo-location.reducer';
 
 @Component({
     selector: 'map',
@@ -10,16 +13,19 @@ import {commonConstants} from '../core/common-constants';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent {
-    @Input() set coordinates(coords: Map<string, number>) {
-        if (coords) {
-            this.coords = coords;
-            this.showMap();
-        }
-    };
-
     @ViewChild('googleMap') googleMap: ElementRef;
 
     private coords: Map<string, number>;
+
+    constructor(private store: Store<State>) {
+        store.select(getCoords)
+            .subscribe((newCoords: Map<string, number>) => {
+                if (newCoords) {
+                    this.coords = newCoords;
+                    this.showMap();
+                }
+            });
+    }
 
     private showMap() {
         let map: google.maps.Map,

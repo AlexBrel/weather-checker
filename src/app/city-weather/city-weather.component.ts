@@ -1,5 +1,9 @@
 import {Component, ChangeDetectionStrategy, ViewChild, ElementRef} from '@angular/core';
 import {List} from 'immutable';
+import {Store} from '@ngrx/store';
+import {State} from '../../states/states';
+import {CitiesState} from '../../states/cities.state';
+import {AddCityAction, RemoveCityAction, RemoveCachedCityAction} from '../../actions/cities.actions';
 
 @Component({
     selector: 'city-weather',
@@ -8,29 +12,24 @@ import {List} from 'immutable';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
-    availableCities: List<string> = List.of(
-        'Minsk',
-        'Zhdanovichy',
-        'Baravaya',
-        'Navinki',
-        'Serebryanka',
-        'Ratamka',
-        'Vostok',
-        'Machulishchy',
-        'Hatava',
-        'Fanipol');
+    availableCities: List<string>;
     selectedCity: string;
     removedCity: string;
     favouriteCity: string;
     selectedTempUnit: string;
     @ViewChild('cityInput') cityInput: ElementRef;
 
-    constructor() {
+    constructor(private store: Store<State>) {
         let storedCity = localStorage.getItem('favouriteCity');
 
         if (storedCity) {
             this.selectedCity = this.favouriteCity = storedCity;
         }
+
+        store.select((state: State) => state.cities)
+            .subscribe((citiesState: CitiesState) => {
+                this.availableCities = citiesState.get('cities') as List<string>;
+            });
     }
 
     selectUnit(selectedUnit: string) {
@@ -40,16 +39,10 @@ export class CityWeatherComponent {
     addCity() {
         let newCity = this.cityInput.nativeElement.value;
 
-        if (this.availableCities.find(x => x === newCity)) {
-            alert('City is already defined');
-        } else {
-            this.availableCities = this.availableCities.push(this.cityInput.nativeElement.value);
-        }
+        this.store.dispatch(new AddCityAction(newCity));
     }
 
     removeCity() {
-        let idx = this.availableCities.indexOf(this.removedCity);
-
         // if removed city is a favourite city -- clear the local storage
         if (this.removedCity === this.favouriteCity) {
             this.favouriteCity = null;
@@ -61,10 +54,8 @@ export class CityWeatherComponent {
             this.selectedCity = null;
         }
 
-        if (idx > -1) {
-            this.availableCities = this.availableCities.delete(idx);
-        }
-
+        this.store.dispatch(new RemoveCityAction(this.removedCity));
+        this.store.dispatch(new RemoveCachedCityAction(this.removedCity));
     }
 
     changeFavouriteCity() {

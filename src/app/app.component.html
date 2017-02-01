@@ -5,12 +5,10 @@
             <city-weather></city-weather>
             <spinner *ngIf="isLoading" class="spinner-wrapper"></spinner>
         </div>
-        <region-weather *ngIf="coordinates"
-                        [ngClass]="{closed: !isWeatherTableReady && isLoading }"
-                        [coordinates]="coordinates"
+        <region-weather [ngClass]="{closed: !isWeatherTableReady && isLoading }"
                         (tableReady)="weatherTableReady($event)">
         </region-weather>
-        <map [coordinates]="coordinates"></map>
+        <map></map>
     </main>
     <main-footer></main-footer>
 </div>

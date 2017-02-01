@@ -1,8 +1,9 @@
-import {Map} from 'immutable';
 import {Component, OnInit, NgZone} from '@angular/core';
+import {Store} from '@ngrx/store';
 
 import {TableReadyEvent} from './region-weather/table-ready-event';
-import {GeoPositionService} from './core/geo-position.service';
+import {State} from '../states/states';
+import {LoadGeoCoordinatesAction} from '../actions/geo-coordinates.actions';
 
 @Component({
     selector: 'app',
@@ -10,13 +11,11 @@ import {GeoPositionService} from './core/geo-position.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    coordinates: Map<string, number>;
-    isWeatherTableReady: boolean = false;
-    isLoading: boolean = true;
-
+    private isWeatherTableReady: boolean = false;
+    private isLoading: boolean = true;
     private time: number;
 
-    constructor(private zone: NgZone, private geoPositionService: GeoPositionService) {
+    constructor(private zone: NgZone, private store: Store<State>) {
         this.zone.onUnstable.subscribe(() => {
             this.time = performance.now();
         });
@@ -27,13 +26,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.geoPositionService.getCoordinates().subscribe(
-            (coordinates: Map<string, number>) => {
-                this.coordinates = coordinates;
-            },
-            (error: Error) => {
-                console.error(error);
-            });
+        this.store.dispatch(new LoadGeoCoordinatesAction());
     }
 
     weatherTableReady(event: TableReadyEvent) {

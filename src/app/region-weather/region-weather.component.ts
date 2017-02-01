@@ -1,12 +1,18 @@
 import {Map, List} from 'immutable';
 import {
-    Component, Input, Output, EventEmitter, ChangeDetectorRef,
-    ChangeDetectionStrategy
+    Component, Output, EventEmitter, ChangeDetectorRef,
+    ChangeDetectionStrategy, OnInit
 } from '@angular/core';
-import {Subject} from 'rxjs';
+import {Store} from '@ngrx/store';
 
 import {City} from '../core/city';
-import {OpenWeatherMapService} from '../shared/open-weather-map.service';
+import {State} from '../../states/states';
+import {LoadRegionWeatherAction} from '../../actions/region-weather.actions';
+import {LoggerService} from '../core/logger/logger.service';
+import {getCoords} from '../../reducers/geo-location.reducer';
+import {getRegionWeather} from '../../reducers/region-weather.reducer';
+
+const TIME_TO_WAIT = 5000;
 
 @Component({
     selector: 'region-weather',
@@ -14,45 +20,53 @@ import {OpenWeatherMapService} from '../shared/open-weather-map.service';
     styleUrls: ['region-weather.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegionWeatherComponent {
+export class RegionWeatherComponent implements OnInit {
     private coords: Map<string, number>;
-
-    @Input() set coordinates(coords: Map<string, number>) {
-        if (coords) {
-            this.coords = coords;
-            this.updateTable();
-        }
-    };
+    private cities: List<City>;
+    private selectedTempUnit: string;
 
     @Output() tableReady = new EventEmitter();
 
-    cities: List<City>;
-    selectedTempUnit: string;
+    constructor(private cd: ChangeDetectorRef, private logger: LoggerService, private store: Store<State>) {
+    }
 
-    constructor(private owmService: OpenWeatherMapService, private cd: ChangeDetectorRef) {
+    ngOnInit(): void {
+        this.store.select(getRegionWeather)
+            .subscribe((citiesWeather: List<City>) => {
+                    this.cities = citiesWeather;
+
+                    if (this.coords) {
+                        this.updateRegionWeather(TIME_TO_WAIT);
+                        this.tableReady.emit({error: null, isTableReady: true});
+                        this.cd.markForCheck();
+                    }
+                },
+                (error: Error) => {
+                    this.tableReady.emit({error: error, isTableReady: false});
+                    this.logger.error(error);
+                }
+            );
+        this.store.select(getCoords)
+            .subscribe((newCoords: Map<string, number>) => {
+                if (newCoords) {
+                    this.coords = newCoords;
+                    this.updateRegionWeather();
+                }
+            });
     }
 
     selectUnit(selectedUnit: string) {
         this.selectedTempUnit = selectedUnit;
     }
 
-    private updateTable() {
-        let $isWeatherUpdates = new Subject<boolean>(),
-            $regionWeather = this.owmService.getRegionWeather(this.coords, $isWeatherUpdates);
-
-        $regionWeather.subscribe(
-            (citiesWeather: List<City>) => {
-                this.cities = citiesWeather;
-                this.tableReady.emit({error: null, isTableReady: true});
-                this.cd.markForCheck();
-            },
-            (error: Error) => {
-                this.tableReady.emit({error: error, isTableReady: false});
-            }
-        );
-
-        $isWeatherUpdates.subscribe(() => {
-            this.tableReady.emit({error: null, isTableReady: false});
-        });
+    private updateRegionWeather(timeToWait?: number) {
+        if (timeToWait) {
+            setTimeout(() => {
+                this.tableReady.emit({error: null, isTableReady: false});
+                this.store.dispatch(new LoadRegionWeatherAction(this.coords));
+            }, timeToWait);
+        } else {
+            this.store.dispatch(new LoadRegionWeatherAction(this.coords));
+        }
     }
 }
