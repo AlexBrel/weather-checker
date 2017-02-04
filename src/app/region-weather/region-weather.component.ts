@@ -1,16 +1,13 @@
 import {Map, List} from 'immutable';
-import {
-    Component, Output, EventEmitter, ChangeDetectorRef,
-    ChangeDetectionStrategy, OnInit
-} from '@angular/core';
+import {Component, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-
 import {City} from '../core/city';
 import {State} from '../../states/states';
 import {LoadRegionWeatherAction} from '../../actions/region-weather.actions';
 import {LoggerService} from '../core/logger/logger.service';
 import {getCoords} from '../../reducers/geo-location.reducer';
 import {getRegionWeather} from '../../reducers/region-weather.reducer';
+import {RegionSettings, InitialRegionSettings} from './region-settings';
 
 const TIME_TO_WAIT = 5000;
 
@@ -23,7 +20,7 @@ const TIME_TO_WAIT = 5000;
 export class RegionWeatherComponent implements OnInit {
     private coords: Map<string, number>;
     private cities: List<City>;
-    private selectedTempUnit: string;
+    private regionSettings: RegionSettings = InitialRegionSettings;
 
     @Output() tableReady = new EventEmitter();
 
@@ -32,8 +29,8 @@ export class RegionWeatherComponent implements OnInit {
 
     ngOnInit(): void {
         this.store.select(getRegionWeather)
-            .subscribe((citiesWeather: List<City>) => {
-                    this.cities = citiesWeather;
+            .subscribe((cities: List<City>) => {
+                    this.cities = cities;
 
                     if (this.coords) {
                         this.updateRegionWeather(TIME_TO_WAIT);
@@ -53,20 +50,31 @@ export class RegionWeatherComponent implements OnInit {
                     this.updateRegionWeather();
                 }
             });
+
     }
 
-    selectUnit(selectedUnit: string) {
-        this.selectedTempUnit = selectedUnit;
+    updateSettings(regionSettings: RegionSettings) {
+        this.regionSettings = regionSettings;
+
+        if (this.cities.size > this.regionSettings.citiesCount) {
+            this.cities = this.cities.setSize(this.regionSettings.citiesCount);
+        }
     }
 
     private updateRegionWeather(timeToWait?: number) {
         if (timeToWait) {
             setTimeout(() => {
                 this.tableReady.emit({error: null, isTableReady: false});
-                this.store.dispatch(new LoadRegionWeatherAction(this.coords));
+                this.store.dispatch(new LoadRegionWeatherAction({
+                    coords: this.coords,
+                    citiesCount: this.regionSettings.citiesCount
+                }));
             }, timeToWait);
         } else {
-            this.store.dispatch(new LoadRegionWeatherAction(this.coords));
+            this.store.dispatch(new LoadRegionWeatherAction({
+                coords: this.coords,
+                citiesCount: this.regionSettings.citiesCount
+            }));
         }
     }
 }

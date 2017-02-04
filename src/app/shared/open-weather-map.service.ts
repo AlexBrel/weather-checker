@@ -29,8 +29,8 @@ export class OpenWeatherMapService {
             });
     }
 
-    public getRegionWeather(coords: Map<string, number>): Observable<List<City>> {
-        return this.http.get(commonConstants.owm.regionUrl, {search: this.createSearchParams(coords)})
+    public getRegionWeather(coords: Map<string, number>, citiesCount: number): Observable<List<City>> {
+        return this.http.get(commonConstants.owm.regionUrl, {search: this.createSearchParams(coords, citiesCount)})
             .map((resp: Response) => List.of(...resp.json().list))
             .catch((error) => {
                 // TODO: change the next line to commented reject as soon as endpoint work stable
@@ -39,12 +39,12 @@ export class OpenWeatherMapService {
             });
     }
 
-    private createSearchParams(coords: Map<string, number>): URLSearchParams {
+    private createSearchParams(coords: Map<string, number>, citiesCount: number): URLSearchParams {
         let params = new URLSearchParams();
 
         params.set('lat', coords.get('lat').toString());
         params.set('lon', coords.get('long').toString());
-        params.set('cnt', commonConstants.owm.count.toString());
+        params.set('cnt', citiesCount.toString());
         params.set('lang', commonConstants.owm.lang);
         params.set('units', commonConstants.owm.units);
         params.set('APPID', commonConstants.owm.apiID);

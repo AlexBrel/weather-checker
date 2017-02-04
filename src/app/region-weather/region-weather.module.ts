@@ -7,6 +7,10 @@ import {WindArrowComponent} from './wind-arrow/wind-arrow.component';
 import {WeatherConditionsComponent} from './weather-conditions/weather-conditions.component';
 import {DirectionalArrowDirective} from './wind-arrow/directional-arrow.directive';
 import {SharedModule} from '../shared/shared.module';
+import {TableSettingsComponent} from './table-settings/table-settings.component';
+import {CounterValidatorDirective} from './table-settings/counter-validator.directive';
+import {RadioGroupComponent} from './radio-group/radio-group.component';
+import {ErrorSummaryComponent} from './error-summary/error-summary.component';
 
 @NgModule({
     imports: [CommonModule, SharedModule],
@@ -15,7 +19,11 @@ import {SharedModule} from '../shared/shared.module';
         TempColorDirective,
         WindArrowComponent,
         WeatherConditionsComponent,
-        DirectionalArrowDirective
+        DirectionalArrowDirective,
+        TableSettingsComponent,
+        CounterValidatorDirective,
+        RadioGroupComponent,
+        ErrorSummaryComponent
     ],
     exports: [RegionWeatherComponent]
 })

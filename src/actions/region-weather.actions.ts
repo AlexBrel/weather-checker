@@ -10,7 +10,7 @@ export const RegionActionTypes = {
 export class LoadRegionWeatherAction implements Action {
     type = RegionActionTypes.LoadWeather;
 
-    constructor(public payload: Map<string, number>) {
+    constructor(public payload: {coords: Map<string, number>, citiesCount: number}) {
     }
 }
 

@@ -1,0 +1,8 @@
+<label *ngFor="let item of items" class="radio-inline">
+    <input type="radio"
+           (change)="setValue(item)"
+           [value]="item"
+           [checked]="value === item"
+           name="{{nameOption}}">
+    {{item}}
+</label>

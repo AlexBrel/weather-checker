@@ -1,0 +1,35 @@
+<div (click)="toggleSettingsOpen()" class="settings-header">
+    <div class="table-icon" [ngClass]="{'icon-expanded': isExpanded, 'icon-collapsed': !isExpanded}"></div>
+    <span>Table settings </span>
+</div>
+<div class="settings-content" [ngClass]="{'expanded': isExpanded, 'collapsed': !isExpanded}">
+
+    <form class="form-wrapper" #form="ngForm" (submit)="submit(form)">
+        <div class="form-input-section">
+            <div class="control-wrapper">
+                <label class="control-label required">Section Name:</label>
+                <input type="text" class="control form-control" name="sectionName" #sectionName="ngModel"
+                       [ngModel]="regionSettings.sectionName" required minlength="3" maxlength="30">
+                <!--<span class="status-message error-message" *ngIf="sectionName.invalid && sectionName.dirty">{{sectionName.errors | json}}</span>-->
+            </div>
+            <div class="control-wrapper">
+                <label class="control-label required">Cities Count:</label>
+                <input type="number" class="control form-control" name="citiesCount" #citiesCount="ngModel"
+                       [ngModel]="regionSettings.citiesCount" min="1" max="50" validateCount>
+                <!--<span class="status-message error-message" *ngIf="citiesCount.invalid && citiesCount.dirty">{{citiesCount.errors | json}}</span>-->
+            </div>
+            <div class="control-wrapper">
+                <label class="control-label">Temperature Unit:</label>
+                <radio-group class="control form-control" name="temperatureUnit" [items]="tempUnits" [nameOption]="temperatureUnit"
+                             [ngModel]="regionSettings.temperatureUnit"></radio-group>
+            </div>
+        </div>
+        <div class="form-summary-section">
+            <button class="form-submit" [disabled]="form.invalid" type="submit">Submit</button>
+            <error-summary [form]="form" *ngIf="form.invalid"></error-summary>
+        </div>
+
+    </form>
+
+
+</div>

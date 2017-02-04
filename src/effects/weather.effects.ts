@@ -3,7 +3,6 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs';
 import {OpenWeatherMapService} from '../app/shared/open-weather-map.service';
 import {AddCityWeatherAction, AddCachedCityAction, CityActionTypes} from '../actions/cities.actions';
-import {} from '../actions/action-types';
 import {City} from '../app/core/city';
 import {AddRegionWeatherAction, RegionActionTypes} from '../actions/region-weather.actions';
 
@@ -23,8 +22,7 @@ export class WeatherEffects {
 
     @Effect() loadRegionWeather$ = this.actions$
         .ofType(RegionActionTypes.LoadWeather)
-        .map(action => action.payload)
-        .switchMap(coords => this.owmService.getRegionWeather(coords)
+        .switchMap(action => this.owmService.getRegionWeather(action.payload.coords, action.payload.citiesCount)
             .map(regionWeather => (new AddRegionWeatherAction(regionWeather)))
         );
 }
