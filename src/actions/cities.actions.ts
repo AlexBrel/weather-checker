@@ -1,4 +1,6 @@
 import {Action} from '@ngrx/store';
+import {Map} from 'immutable';
+
 import {Weather} from '../app/core/weather';
 import {City} from '../app/core/city';
 
@@ -8,7 +10,9 @@ export const CityActionTypes = {
     Add: '[City] Add',
     Remove: '[City] Remove',
     AddWeather: '[City] AddWeather',
-    LoadWeather: '[City] LoadWeather'
+    LoadWeather: '[City] LoadWeather',
+    AddYourCityWeather: '[City] AddYourCityWeather',
+    LoadYourCityWeather: '[City] LoadYourCityWeather'
 };
 
 export class AddCityAction implements Action {
@@ -34,6 +38,20 @@ export class LoadCityWeatherAction implements Action {
 
 export class AddCityWeatherAction implements Action {
     type = CityActionTypes.AddWeather;
+
+    constructor(public payload: Weather) {
+    }
+}
+
+export class LoadYourCityWeatherAction implements Action {
+    type = CityActionTypes.LoadYourCityWeather;
+
+    constructor(public payload: Map<string, number>) {
+    }
+}
+
+export class AddYourCityWeatherAction implements Action {
+    type = CityActionTypes.AddYourCityWeather;
 
     constructor(public payload: Weather) {
     }

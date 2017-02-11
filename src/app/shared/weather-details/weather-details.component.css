@@ -1,0 +1,10 @@
+.weather-details {
+    background-color: #c7c7c7;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.weather-details div {
+    margin: 5px 10px;
+    overflow: hidden;
+}

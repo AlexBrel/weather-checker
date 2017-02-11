@@ -18,9 +18,9 @@ export class TableSettingsComponent {
         }
     };
 
-    isExpanded: boolean = false;
-    tempUnits = [temperatureUnit.Celsius, temperatureUnit.Fahrenheit, temperatureUnit.Kelvin];
-    regionSettings: RegionSettings;
+    private isExpanded: boolean = false;
+    private tempUnits = [temperatureUnit.Celsius, temperatureUnit.Fahrenheit, temperatureUnit.Kelvin];
+    private regionSettings: RegionSettings;
 
     submit(form: NgForm) {
         this.updateSettings.emit(form.value);

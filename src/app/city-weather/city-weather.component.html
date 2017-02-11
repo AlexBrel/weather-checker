@@ -19,18 +19,8 @@
 </div>
 
 <div class="city-weather-wrapper">
-    <div class="operation-header">Select City:</div>
-    <select [(ngModel)]="selectedCity" class="operand">
-        <option *ngFor="let city of availableCities" [ngValue]="city">{{city}}</option>
-    </select>
-    in
-    <temp-unit-selector (selectUnit)="selectUnit($event)"></temp-unit-selector>
-    <div *ngIf="selectedCity">
-        Temperature: {{selectedCity |
-        weatherRequest |
-        async |
-        convertTemperature: selectedTempUnit |
-        floorTemperature |
-        temperatureString}}
+    <div>
+        <div *ngFor="let city of availableCities" (click)="selectCity(city)" class="city-item">{{city}}</div>
     </div>
+    <router-outlet></router-outlet>
 </div>

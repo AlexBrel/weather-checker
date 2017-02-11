@@ -9,8 +9,8 @@ import {Wind} from '../../core/wind';
 
 })
 export class WindArrowComponent {
-    windSpeed: number;
-    angle: number;
+    private windSpeed: number;
+    private angle: number;
 
     @Input() set wind(value: Wind) {
         this.windSpeed = value.speed;

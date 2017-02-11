@@ -1,0 +1,11 @@
+.page-not-found-wrapper{
+    text-align: center;
+}
+
+img {
+    height: 300px;
+}
+
+h2 {
+    text-transform: capitalize;
+}

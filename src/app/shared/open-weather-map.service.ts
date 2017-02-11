@@ -5,7 +5,6 @@ import {Injectable} from '@angular/core';
 
 import {commonConstants} from '../core/common-constants';
 import {City} from '../core/city';
-import {mockCityWeatherResponse} from './mock-requests/city-weather-response.mock';
 import {mockWeatherResponse} from './mock-requests/weather-response.mock';
 import {LoggerService} from '../core/logger/logger.service';
 
@@ -14,7 +13,7 @@ export class OpenWeatherMapService {
     constructor(private http: Http, private logger: LoggerService) {
     }
 
-    public getCityWeather(cityName: string): Observable<City> {
+    public getCityWeatherByName(cityName: string): Observable<City> {
         let params: URLSearchParams = new URLSearchParams();
         params.set('q', cityName);
         params.set('lang', commonConstants.owm.lang);
@@ -25,7 +24,23 @@ export class OpenWeatherMapService {
             .map((resp: Response) => resp.json() as City)
             .catch(error => {
                 this.logger.error(error);
-                return Observable.of({name: cityName, main: mockCityWeatherResponse.main});
+                throw error;
+            });
+    }
+
+    public getCityWeatherByCoords(coords: Map<string, number>): Observable<City> {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('lat', coords.get('lat').toString());
+        params.set('lon', coords.get('long').toString());
+        params.set('lang', commonConstants.owm.lang);
+        params.set('units', commonConstants.owm.units);
+        params.set('APPID', commonConstants.owm.apiID);
+
+        return this.http.get(commonConstants.owm.cityUrl, {search: params})
+            .map((resp: Response) => resp.json() as City)
+            .catch(error => {
+                this.logger.error(error);
+                throw error;
             });
     }
 

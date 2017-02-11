@@ -6,7 +6,6 @@ import {HttpModule} from '@angular/http';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 
-import {SpinnerComponent} from './spinner/spinner.component';
 import {GeoPositionService} from './geo-position.service';
 import {MainFooterComponent} from './main-footer/main-footer.component';
 import {MainHeaderComponent} from './main-header/main-header.component';
@@ -14,7 +13,7 @@ import {ENV_PROVIDERS} from './environment';
 import {reducer} from '../../reducers/reducers';
 import {WeatherEffects} from '../../effects/weather.effects';
 import {GeoLocationEffects} from '../../effects/geo-location.effects';
-
+import {Page404Component} from './error-pages/page-404.component';
 
 @NgModule({
     imports: [
@@ -27,9 +26,9 @@ import {GeoLocationEffects} from '../../effects/geo-location.effects';
         EffectsModule.run(GeoLocationEffects)
     ],
     declarations: [
-        SpinnerComponent,
         MainHeaderComponent,
-        MainFooterComponent
+        MainFooterComponent,
+        Page404Component
     ],
     providers: [
         GeoPositionService,
@@ -40,9 +39,8 @@ import {GeoLocationEffects} from '../../effects/geo-location.effects';
         CommonModule,
         FormsModule,
         HttpModule,
-        SpinnerComponent,
         MainHeaderComponent,
-        MainFooterComponent
+        MainFooterComponent,
     ]
 })
 export class CoreModule {

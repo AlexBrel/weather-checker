@@ -17,5 +17,6 @@ export const InitialCitiesState: CitiesState = Map({
         'Hatava',
         'Fanipol'),
     cityWeather: null,
+    yourCityWeather: null,
     cachedCities: List<City>()
 });

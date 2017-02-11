@@ -19,6 +19,35 @@
     margin-bottom: 10px;
 }
 
+nav {
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0 15px;
+    font-size: 18px;
+    color: #6a6a6a;
+    border-right: 1px solid #6a6a6a;
+}
+
+nav a:last-child {
+    border-right: none;
+}
+
+nav a.active {
+    text-decoration: underline;
+    color: #4c4c4c;
+}
+
+.your-city-link {
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
 main {
     padding: 15px;
     margin-bottom: 60px;

@@ -1,26 +1,36 @@
-<h4 class="cities-weather-header">{{regionSettings.sectionName}}</h4>
-<table-settings [settings]="regionSettings" (updateSettings)="updateSettings($event)"></table-settings>
-<div class="table-responsive" *ngIf="coords">
-    <table id="weather-table" class="table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>City</th>
-            <th>Weather</th>
-            <th>Temperature, {{regionSettings.temperatureUnit}}</th>
-            <th>Pressure, GPa</th>
-            <th>Wind</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let city of cities; let i = index" [tempColor]="city.main" >
-            <td>{{i + 1}}</td>
-            <td>{{city.name}}</td>
-            <td><weather-conditions [conditions]="city.weather[0]"></weather-conditions></td>
-            <td>{{city.main| convertTemperature: regionSettings.temperatureUnit| floorTemperature| temperatureString}}</td>
-            <td>{{city.main.pressure}}</td>
-            <td><wind-arrow [wind]="city.wind"></wind-arrow></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="region-weather-wrapper">
+
+    <spinner *ngIf="isLoading" class="region-spinner"></spinner>
+    <h4 class="cities-weather-header">{{regionSettings.sectionName}}</h4>
+    <table-settings [settings]="regionSettings" (updateSettings)="updateSettings($event)"></table-settings>
+    <div class="table-responsive" *ngIf="coords">
+        <table id="weather-table" class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>City</th>
+                <th>Weather</th>
+                <th>Temperature, {{regionSettings.temperatureUnit}}</th>
+                <th>Pressure, GPa</th>
+                <th>Wind</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let city of cities; let i = index" [tempColor]="city.main">
+                <td>{{i + 1}}</td>
+                <td>{{city.name}}</td>
+                <td>
+                    <weather-conditions [conditions]="city.weather[0]"></weather-conditions>
+                </td>
+                <td>{{city.main| convertTemperature: regionSettings.temperatureUnit| floorTemperature|
+                    temperatureString}}
+                </td>
+                <td>{{city.main.pressure}}</td>
+                <td>
+                    <wind-arrow [wind]="city.wind"></wind-arrow>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

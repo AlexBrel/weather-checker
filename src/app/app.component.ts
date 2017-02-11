@@ -1,9 +1,9 @@
 import {Component, OnInit, NgZone} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import {TableReadyEvent} from './region-weather/table-ready-event';
 import {State} from '../states/states';
 import {LoadGeoCoordinatesAction} from '../actions/geo-coordinates.actions';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app',
@@ -11,11 +11,10 @@ import {LoadGeoCoordinatesAction} from '../actions/geo-coordinates.actions';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    private isWeatherTableReady: boolean = false;
-    private isLoading: boolean = true;
     private time: number;
+    private isYourCityOpened = false;
 
-    constructor(private zone: NgZone, private store: Store<State>) {
+    constructor(private zone: NgZone, private store: Store<State>, private router: Router) {
         this.zone.onUnstable.subscribe(() => {
             this.time = performance.now();
         });
@@ -29,14 +28,11 @@ export class AppComponent implements OnInit {
         this.store.dispatch(new LoadGeoCoordinatesAction());
     }
 
-    weatherTableReady(event: TableReadyEvent) {
-        if (event.error) {
-            console.error(event.error);
-        } else {
-            if (!this.isWeatherTableReady) {
-                this.isWeatherTableReady = event.isTableReady;
-            }
-            this.isLoading = !event.isTableReady;
-        }
+    toggleYourCityWidget() {
+        this.isYourCityOpened = !this.isYourCityOpened;
+
+        this.isYourCityOpened
+            ? this.router.navigate([{outlets: {widget: ['your-city']}}])
+            : this.router.navigate([{outlets: {widget: null}}]);
     }
 }

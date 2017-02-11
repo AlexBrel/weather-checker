@@ -8,6 +8,6 @@ export interface RegionSettings {
 
 export const InitialRegionSettings: RegionSettings = {
     citiesCount: 50,
-        sectionName: 'Weather in your region',
-        temperatureUnit: temperatureUnit.Celsius
+    sectionName: 'Weather in your region',
+    temperatureUnit: temperatureUnit.Celsius
 };

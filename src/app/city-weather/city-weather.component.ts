@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {State} from '../../states/states';
 import {CitiesState} from '../../states/cities.state';
 import {AddCityAction, RemoveCityAction, RemoveCachedCityAction} from '../../actions/cities.actions';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'city-weather',
@@ -12,14 +13,14 @@ import {AddCityAction, RemoveCityAction, RemoveCachedCityAction} from '../../act
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
-    availableCities: List<string>;
-    selectedCity: string;
-    removedCity: string;
-    favouriteCity: string;
-    selectedTempUnit: string;
+    private availableCities: List<string>;
+    private selectedCity: string;
+    private removedCity: string;
+    private favouriteCity: string;
+    private selectedTempUnit: string;
     @ViewChild('cityInput') cityInput: ElementRef;
 
-    constructor(private store: Store<State>) {
+    constructor(private store: Store<State>, private router: Router) {
         let storedCity = localStorage.getItem('favouriteCity');
 
         if (storedCity) {
@@ -60,5 +61,9 @@ export class CityWeatherComponent {
 
     changeFavouriteCity() {
         localStorage.setItem('favouriteCity', this.favouriteCity);
+    }
+
+    selectCity(cityName: string) {
+        this.router.navigate(['/city', cityName]);
     }
 }

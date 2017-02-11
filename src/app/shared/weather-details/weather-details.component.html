@@ -1,0 +1,8 @@
+<span>Weather <span *ngIf="cityName">for {{cityName}}</span></span>
+<div class="weather-details">
+    <div *ngIf="weather.humidity">Humidity: {{weather.humidity}}%</div>
+    <div *ngIf="weather.pressure">Pressure: {{weather.pressure}}GPa</div>
+    <div *ngIf="weather.temp">Temperature: {{weather.temp}}°C</div>
+    <div *ngIf="weather.temp_min">Max Temperature: {{weather.temp_min}}°C</div>
+    <div *ngIf="weather.temp_max">Min Temperature: {{weather.temp_max}}°C</div>
+</div>

@@ -1,6 +1,11 @@
 import {Map, List} from 'immutable';
-import {Component, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {
+    Component, ChangeDetectorRef, ChangeDetectionStrategy, OnInit,
+    OnDestroy
+} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
+
 import {City} from '../core/city';
 import {State} from '../../states/states';
 import {LoadRegionWeatherAction} from '../../actions/region-weather.actions';
@@ -17,33 +22,34 @@ const TIME_TO_WAIT = 5000;
     styleUrls: ['region-weather.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegionWeatherComponent implements OnInit {
+export class RegionWeatherComponent implements OnInit, OnDestroy {
     private coords: Map<string, number>;
     private cities: List<City>;
+    private isLoading: boolean = true;
     private regionSettings: RegionSettings = InitialRegionSettings;
-
-    @Output() tableReady = new EventEmitter();
+    private coordsSubscription: Subscription;
+    private regionSubscription: Subscription;
 
     constructor(private cd: ChangeDetectorRef, private logger: LoggerService, private store: Store<State>) {
     }
 
     ngOnInit(): void {
-        this.store.select(getRegionWeather)
+        this.regionSubscription = this.store.select(getRegionWeather)
             .subscribe((cities: List<City>) => {
                     this.cities = cities;
 
                     if (this.coords) {
                         this.updateRegionWeather(TIME_TO_WAIT);
-                        this.tableReady.emit({error: null, isTableReady: true});
+                        this.isLoading = false;
                         this.cd.markForCheck();
                     }
                 },
                 (error: Error) => {
-                    this.tableReady.emit({error: error, isTableReady: false});
+                    this.isLoading = true;
                     this.logger.error(error);
                 }
             );
-        this.store.select(getCoords)
+        this.coordsSubscription = this.store.select(getCoords)
             .subscribe((newCoords: Map<string, number>) => {
                 if (newCoords) {
                     this.coords = newCoords;
@@ -64,7 +70,7 @@ export class RegionWeatherComponent implements OnInit {
     private updateRegionWeather(timeToWait?: number) {
         if (timeToWait) {
             setTimeout(() => {
-                this.tableReady.emit({error: null, isTableReady: false});
+                this.isLoading = true;
                 this.store.dispatch(new LoadRegionWeatherAction({
                     coords: this.coords,
                     citiesCount: this.regionSettings.citiesCount
@@ -76,5 +82,10 @@ export class RegionWeatherComponent implements OnInit {
                 citiesCount: this.regionSettings.citiesCount
             }));
         }
+    }
+
+    ngOnDestroy(): void {
+        this.regionSubscription.unsubscribe();
+        this.coordsSubscription.unsubscribe();
     }
 }

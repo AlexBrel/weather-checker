@@ -1,14 +1,15 @@
 <div class="layout">
     <main-header></main-header>
+    <nav>
+        <a routerLink="/region" routerLinkActive="active">Region</a>
+        <a routerLink="/city" routerLinkActive="active">City</a>
+        <a routerLink="/map" routerLinkActive="active">Map</a>
+
+        <a class="your-city-link" (click)="toggleYourCityWidget()" [ngClass]="{'active': isYourCityOpened}">Your city</a>
+    </nav>
     <main>
-        <div class="top-layout">
-            <city-weather></city-weather>
-            <spinner *ngIf="isLoading" class="spinner-wrapper"></spinner>
-        </div>
-        <region-weather [ngClass]="{closed: !isWeatherTableReady && isLoading }"
-                        (tableReady)="weatherTableReady($event)">
-        </region-weather>
-        <map></map>
+        <router-outlet name="widget"></router-outlet>
+        <router-outlet></router-outlet>
     </main>
     <main-footer></main-footer>
 </div>

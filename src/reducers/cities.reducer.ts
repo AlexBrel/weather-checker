@@ -16,6 +16,9 @@ export function citiesReducer(state = InitialCitiesState, action: CitiesActions)
         case CityActionTypes.AddWeather: {
             return state.set('cityWeather', action.payload as Weather);
         }
+        case CityActionTypes.AddYourCityWeather: {
+            return state.set('yourCityWeather', action.payload as City);
+        }
         case CityActionTypes.AddCachedCity: {
             let cachedCities = state.get('cachedCities') as List<City>;
 
@@ -33,6 +36,7 @@ export function citiesReducer(state = InitialCitiesState, action: CitiesActions)
 
 export const getCities = (state: State) => state.cities.get('cities');
 export const getCityWeather = (state: State) => state.cities.get('cityWeather') as Weather;
+export const getYourCityWeather = (state: State) => state.cities.get('yourCityWeather') as City;
 export const getCachedCities = (state: State) => state.cities.get('cachedCities') as List<City>;
 
 function addCity(state: CitiesState, newCity: string): CitiesState {

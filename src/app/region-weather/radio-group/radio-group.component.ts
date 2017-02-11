@@ -16,7 +16,7 @@ export class RadioGroupComponent implements ControlValueAccessor {
     @Input() items: string[];
     @Input() nameOption: string;
 
-    selectedValue: string;
+    private selectedValue: string;
 
     setValue(value: string) {
         this.value = value;

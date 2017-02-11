@@ -29,7 +29,8 @@ module.exports = function (env) {
 		devServer: {
 			contentBase: './dist',
 			hot: false,
-			inline: true
+			inline: true,
+			historyApiFallback: true
 		}
 	});
 };
