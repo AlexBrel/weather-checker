@@ -14,6 +14,7 @@ import {reducer} from '../../reducers/reducers';
 import {WeatherEffects} from '../../effects/weather.effects';
 import {GeoLocationEffects} from '../../effects/geo-location.effects';
 import {Page404Component} from './error-pages/page-404.component';
+import {defaultRequestOptionsProvider} from './default-rest-options.provider';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import {Page404Component} from './error-pages/page-404.component';
     ],
     providers: [
         GeoPositionService,
+        defaultRequestOptionsProvider,
         ...ENV_PROVIDERS
     ],
     exports: [
