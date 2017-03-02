@@ -18,7 +18,11 @@ export class TempColorDirective {
     }
 
     private getColorByWeather(weather: Weather): string {
-        if (weather.temp <= -20) {
+        let defaultColor = '#ff965f';
+
+        if (!weather) {
+            return defaultColor;
+        } else if (weather.temp <= -20) {
             return '#4e78b5';
         } else if (weather.temp <= -10) {
             return '#5d9eda';
@@ -33,7 +37,7 @@ export class TempColorDirective {
         } else if (weather.temp <= 20) {
             return '#e79e88';
         } else {
-            return '#ff965f';
+            return defaultColor;
         }
     }
 }

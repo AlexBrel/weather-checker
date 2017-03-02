@@ -21,7 +21,8 @@
       "node",
       "source-map",
       "uglify-js",
-      "webpack"
+      "webpack",
+      "jasmine"
     ],
     "baseUrl": "./",
     "paths": {

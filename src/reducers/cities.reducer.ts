@@ -11,6 +11,10 @@ export function citiesReducer(state = InitialCitiesState, action: CitiesActions)
             return addCity(state, action.payload as string);
         }
         case CityActionTypes.Remove: {
+            let cachedCities = state.get('cachedCities') as List<City>;
+
+            state = state.set('cachedCities', cachedCities.filterNot(city => city.name === action.payload).toList());
+
             return removeCity(state, action.payload as string);
         }
         case CityActionTypes.AddWeather: {
@@ -23,11 +27,6 @@ export function citiesReducer(state = InitialCitiesState, action: CitiesActions)
             let cachedCities = state.get('cachedCities') as List<City>;
 
             return state.set('cachedCities', cachedCities.push(action.payload as City));
-        }
-        case CityActionTypes.RemoveCachedCity: {
-            let cachedCities = state.get('cachedCities') as List<City>;
-
-            return state.set('cachedCities', cachedCities.filterNot(city => city.name === action.payload).toList());
         }
         default:
             return state;

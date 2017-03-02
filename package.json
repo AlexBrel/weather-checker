@@ -12,7 +12,8 @@
     "dev-server": "webpack-dev-server --progress --port 8090 --config config/webpack.config.js",
     "start": "npm run start:dev",
     "start:dev": "set NODE_ENV=dev&& npm run dev-server",
-    "start:prod": "set NODE_ENV=prod&& npm run cleanup && npm run compile && npm run dev-server"
+    "start:prod": "set NODE_ENV=prod&& npm run cleanup && npm run compile && npm run dev-server",
+    "test": "karma start"
   },
   "author": "Alex Brel",
   "license": "UNLICENSED",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@types/core-js": "^0.9.35",
     "@types/googlemaps": "^3.25.36",
+    "@types/jasmine": "^2.5.43",
     "@types/node": "0.0.1",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
@@ -54,6 +56,12 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
+    "jasmine": "^2.5.3",
+    "karma": "^1.5.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.2",
     "manifest-revision-webpack-plugin": "^0.3.0",
     "ngrx-store-freeze": "^0.1.6",
     "raw-loader": "^0.5.1",

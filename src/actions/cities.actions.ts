@@ -64,16 +64,8 @@ export class AddCachedCityAction implements Action {
     }
 }
 
-export class RemoveCachedCityAction implements Action {
-    type = CityActionTypes.RemoveCachedCity;
-
-    constructor(public payload: string) {
-    }
-}
-
 export type CitiesActions = AddCityAction
     | RemoveCityAction
     | LoadCityWeatherAction
     | AddCityWeatherAction
-    | AddCachedCityAction
-    | RemoveCachedCityAction;
+    | AddCachedCityAction;
